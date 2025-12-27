@@ -10,21 +10,28 @@
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { 
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--tg-theme-bg-color, #0a0a0a);
-            color: var(--tg-theme-text-color, #ffffff);
+            background: #0a0a0a !important;
+            color: #ffffff !important;
             min-height: 100vh;
             overflow-x: hidden;
         }
         .btn-primary {
             background: linear-gradient(135deg, #ef4444 0%, #f97316 100%);
+            color: #fff !important;
         }
         .btn-primary:active { transform: scale(0.98); }
+        .entrance-btn { color: #fff !important; }
         .entrance-btn:active { transform: scale(0.98); }
+        .place-btn { background: #1f2937 !important; color: #fff !important; }
+        .place-btn div { color: #fff !important; }
+        .place-btn .text-gray-400 { color: #9ca3af !important; }
+        header { background: #111827 !important; border-color: #1f2937 !important; }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         .animate-bounce { animation: bounce 1s infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
         .animate-spin { animation: spin 1s linear infinite; }
         .loader { border: 4px solid rgba(255,255,255,0.1); border-top-color: #f97316; border-radius: 50%; width: 48px; height: 48px; }
+        .route-photo { background: #111827; }
     </style>
 </head>
 <body>
@@ -37,7 +44,7 @@
         tg.expand();
 
         // Данные
-        const GITHUB_PHOTOS = 'https://raw.githubusercontent.com/virdaaa/istkabel-navigator/main/images/route1-coworking/';
+        const GITHUB_PHOTOS = 'https://virdaaa.github.io/istkabel-navigator/images/route1-coworking/';
 
         const ENTRANCES = [
             { id: 'dom-byta', name: 'Дом быта', color: '#3b82f6', x: 57.2, y: 80.1 },
@@ -191,15 +198,17 @@
                     </div>
                     
                     <main class="flex-1 flex flex-col">
-                        <div class="relative flex-1 bg-gray-900 min-h-[250px]">
-                            <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="relative flex-1 route-photo min-h-[250px]">
+                            <div class="photo-loader absolute inset-0 flex items-center justify-center">
                                 <div class="loader animate-spin"></div>
                             </div>
                             <img 
                                 src="${currentStep.photo}" 
                                 alt="${currentStep.text}"
                                 class="absolute inset-0 w-full h-full object-cover"
-                                onload="this.style.opacity=1; this.previousElementSibling.style.display='none';"
+                                crossorigin="anonymous"
+                                onload="this.style.opacity=1; this.parentElement.querySelector('.photo-loader').style.display='none';"
+                                onerror="this.parentElement.querySelector('.photo-loader').innerHTML='<div class=\\'text-center\\'><div class=\\'text-4xl mb-2\\'>📷</div><div class=\\'text-gray-400 text-sm\\'>Фото загружается...</div></div>';"
                                 style="opacity: 0; transition: opacity 0.3s"
                             />
                             
