@@ -8,13 +8,16 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html, body, #app { height: 100%; }
         body { 
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: #0a0a0a !important;
             color: #ffffff !important;
             min-height: 100vh;
+            min-height: -webkit-fill-available;
             overflow-x: hidden;
         }
+        .min-h-screen { min-height: 100vh; min-height: -webkit-fill-available; }
         .btn-primary {
             background: linear-gradient(135deg, #ef4444 0%, #f97316 100%);
             color: #fff !important;
@@ -235,8 +238,8 @@
                         <div class="h-full btn-primary transition-all duration-300" style="width: ${(state.step / route.length) * 100}%"></div>
                     </div>
                     
-                    <main class="flex-1 flex flex-col">
-                        <div class="relative flex-1 route-photo min-h-[250px]">
+                    <main class="flex-1 flex flex-col overflow-hidden">
+                        <div class="relative route-photo" style="flex: 1 1 auto; min-height: 180px; max-height: 50vh;">
                             <div class="photo-loader absolute inset-0 flex items-center justify-center">
                                 <div class="loader animate-spin"></div>
                             </div>
@@ -250,41 +253,42 @@
                                 style="opacity: 0; transition: opacity 0.3s"
                             />
                             
-                            <div class="absolute top-3 left-3 bg-black/60 backdrop-blur rounded-full px-3 py-1 text-sm">
+                            <div class="absolute top-2 left-2 bg-black/60 backdrop-blur rounded-full px-2 py-1 text-sm">
                                 <span class="text-orange-400 font-bold">${state.step}</span>
                                 <span class="text-gray-400">/${route.length}</span>
                             </div>
                             
-                            <div class="absolute top-3 right-3 bg-black/60 backdrop-blur rounded-full w-10 h-10 flex items-center justify-center text-xl">
+                            <div class="absolute top-2 right-2 bg-black/60 backdrop-blur rounded-full w-8 h-8 flex items-center justify-center text-lg">
                                 ${directionIcons[currentStep.direction]}
                             </div>
                             
                             ${isLast ? `
                                 <div class="absolute inset-0 bg-black/50 flex items-center justify-center">
                                     <div class="text-center animate-bounce">
-                                        <div class="text-6xl">🧶</div>
-                                        <div class="text-2xl font-bold mt-2">Добро пожаловать!</div>
+                                        <div class="text-5xl">🧶</div>
+                                        <div class="text-xl font-bold mt-2">Добро пожаловать!</div>
                                     </div>
                                 </div>
                             ` : ''}
                         </div>
                         
-                        <div class="p-4 bg-gray-900 border-t border-gray-800">
-                            <div class="flex items-start gap-3 mb-4 bg-gray-800 rounded-xl p-3">
-                                <div class="text-3xl">${directionIcons[currentStep.direction]}</div>
+                        <div class="p-3 bg-gray-900 border-t border-gray-800" style="flex-shrink: 0;">
+                            <div class="flex items-start gap-2 mb-3 bg-gray-800 rounded-xl p-2">
+                                <div class="text-2xl">${directionIcons[currentStep.direction]}</div>
                                 <div>
-                                    <div class="text-lg font-bold text-white">${currentStep.text}</div>
+                                    <div class="font-bold text-white">${currentStep.text}</div>
                                     <div class="text-gray-300 text-sm">${currentStep.hint}</div>
                                 </div>
                             </div>
                             
-                            <div class="flex gap-3">
+                            <div class="flex gap-2">
                                 <button 
-                                    class="prev-btn flex-1 py-3 rounded-xl bg-gray-700 font-medium ${isFirst ? 'opacity-30' : ''}"
+                                    class="prev-btn flex-1 py-2 rounded-xl bg-gray-700 font-medium ${isFirst ? 'opacity-30' : ''}"
+                                    style="color: #fff;"
                                     ${isFirst ? 'disabled' : ''}
                                 >← Назад</button>
                                 <button 
-                                    class="next-btn flex-1 py-3 rounded-xl btn-primary font-bold ${isLast ? 'bg-green-600' : ''}"
+                                    class="next-btn flex-1 py-2 rounded-xl btn-primary font-bold ${isLast ? 'bg-green-600' : ''}"
                                     ${isLast ? 'disabled' : ''}
                                 >${isLast ? '✓ Готово' : 'Дальше →'}</button>
                             </div>
