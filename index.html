@@ -99,16 +99,16 @@
 
         function renderMapScreen() {
             return `
-                <div class="min-h-screen flex flex-col">
-                    <header class="p-4 border-b border-gray-800 flex items-center gap-3">
+                <div class="min-h-screen flex flex-col" style="background: #0a0a0a;">
+                    <header class="p-4 border-b flex items-center gap-3" style="background: #111827; border-color: #1f2937;">
                         <span class="text-2xl">🧶</span>
-                        <span class="font-bold">Исткабель Гид</span>
+                        <span class="font-bold" style="color: #ffffff;">Исткабель Гид</span>
                     </header>
                     
                     <main class="flex-1 p-4">
-                        <h2 class="text-xl font-bold text-center mb-4">Откуда вы заходите?</h2>
+                        <h2 class="text-xl font-bold text-center mb-4" style="color: #ffffff;">Откуда вы заходите?</h2>
                         
-                        <div class="relative rounded-xl overflow-hidden border border-gray-700 bg-gray-900 aspect-video mb-4">
+                        <div class="relative rounded-xl overflow-hidden border border-gray-700 aspect-video mb-4" style="background: #111827;">
                             <svg viewBox="0 0 100 62" class="w-full h-full">
                                 <rect x="0" y="0" width="100" height="62" fill="#111827"/>
                                 <rect x="15" y="15" width="60" height="40" rx="2" fill="#374151" opacity="0.3"/>
@@ -130,7 +130,7 @@
                                 <button 
                                     class="entrance-btn w-full p-4 rounded-xl text-left font-bold transition-transform"
                                     data-entrance="${e.id}"
-                                    style="background: ${e.color}"
+                                    style="background: ${e.color}; color: #ffffff;"
                                 >${e.name}</button>
                             `).join('')}
                         </div>
@@ -141,33 +141,34 @@
 
         function renderPlaceScreen() {
             return `
-                <div class="min-h-screen flex flex-col">
-                    <header class="p-4 border-b border-gray-800 flex items-center justify-between">
+                <div class="min-h-screen flex flex-col" style="background: #0a0a0a;">
+                    <header class="p-4 border-b flex items-center justify-between" style="background: #111827; border-color: #1f2937;">
                         <div class="flex items-center gap-3">
-                            <button class="back-btn text-gray-400 text-xl">←</button>
+                            <button class="back-btn text-xl" style="color: #9ca3af;">←</button>
                             <span class="text-2xl">🧶</span>
-                            <span class="font-bold">Исткабель Гид</span>
+                            <span class="font-bold" style="color: #ffffff;">Исткабель Гид</span>
                         </div>
                     </header>
                     
                     <main class="flex-1 p-4">
                         <div class="text-center mb-4">
-                            <div class="text-gray-400 text-sm">Вы заходите через</div>
+                            <div class="text-sm" style="color: #9ca3af;">Вы заходите через</div>
                             <div class="text-xl font-bold" style="color: ${state.entrance.color}">${state.entrance.name}</div>
                         </div>
                         
-                        <h2 class="text-lg font-bold mb-3">Куда идём?</h2>
+                        <h2 class="text-lg font-bold mb-3" style="color: #ffffff;">Куда идём?</h2>
                         
                         <div class="space-y-2">
                             ${PLACES.map(p => `
                                 <button 
-                                    class="place-btn w-full p-4 rounded-xl bg-gray-800 text-left flex items-center gap-3 transition-transform active:scale-98"
+                                    class="place-btn w-full p-4 rounded-xl text-left flex items-center gap-3 transition-transform active:scale-98"
                                     data-place="${p.id}"
+                                    style="background: #1f2937;"
                                 >
                                     <span class="text-3xl">${p.icon}</span>
                                     <div>
-                                        <div class="font-bold">${p.name}</div>
-                                        <div class="text-gray-400 text-sm">${p.floor} этаж</div>
+                                        <div class="font-bold" style="color: #ffffff;">${p.name}</div>
+                                        <div class="text-sm" style="color: #9ca3af;">${p.floor} этаж</div>
                                     </div>
                                 </button>
                             `).join('')}
