@@ -281,16 +281,16 @@
                                 </div>
                             </div>
                             
-                            <div class="flex gap-2">
+                            <div class="flex gap-3">
                                 <button 
-                                    class="prev-btn flex-1 py-2 rounded-xl bg-gray-700 font-medium ${isFirst ? 'opacity-30' : ''}"
+                                    class="prev-btn flex-1 py-4 rounded-xl bg-gray-700 font-medium text-lg ${isFirst ? 'opacity-30' : ''}"
                                     style="color: #fff;"
                                     ${isFirst ? 'disabled' : ''}
                                 >← Назад</button>
                                 <button 
-                                    class="next-btn flex-1 py-2 rounded-xl btn-primary font-bold ${isLast ? 'bg-green-600' : ''}"
-                                    ${isLast ? 'disabled' : ''}
-                                >${isLast ? '✓ Готово' : 'Дальше →'}</button>
+                                    class="next-btn flex-1 py-4 rounded-xl btn-primary font-bold text-lg"
+                                    style="${isLast ? 'background: #16a34a;' : ''}"
+                                >${isLast ? '🏠 На главную' : 'Дальше →'}</button>
                             </div>
                         </div>
                     </main>
@@ -363,6 +363,13 @@
                     const route = getRoute(state.entrance.id, state.place.id);
                     if (route && state.step < route.length) {
                         state.step++;
+                        render();
+                    } else if (route && state.step === route.length) {
+                        // Финиш — возврат на главную
+                        state.screen = 'map';
+                        state.entrance = null;
+                        state.place = null;
+                        state.step = 1;
                         render();
                     }
                 };
