@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🧶 Исткабель Гид</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--tg-theme-bg-color, #0a0a0a);
+            color: var(--tg-theme-text-color, #ffffff);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #ef4444 0%, #f97316 100%);
+        }
+        .btn-primary:active { transform: scale(0.98); }
+        .entrance-btn:active { transform: scale(0.98); }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .animate-bounce { animation: bounce 1s infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .animate-spin { animation: spin 1s linear infinite; }
+        .loader { border: 4px solid rgba(255,255,255,0.1); border-top-color: #f97316; border-radius: 50%; width: 48px; height: 48px; }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+        // Telegram WebApp init
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand();
+
+        // Данные
+        const GITHUB_PHOTOS = 'https://raw.githubusercontent.com/virdaaa/istkabel-navigator/main/images/route1-coworking/';
+
+        const ENTRANCES = [
+            { id: 'dom-byta', name: 'Дом быта', color: '#3b82f6', x: 57.2, y: 80.1 },
+            { id: 'sevcable', name: 'От Севкабеля', color: '#14b8a6', x: 78.4, y: 48.7 },
+            { id: 'kozh-34zh', name: 'Кожевенная 34ж', color: '#8b5cf6', x: 12.8, y: 75.3 },
+        ];
+
+        const PLACES = [
+            { id: 'svalka', name: 'SVALKA', icon: '👕', floor: 2 },
+            { id: 'skellige', name: 'Скеллиге', icon: '🪓', floor: 2 },
+            { id: 'machty', name: 'Мачты', icon: '🍸', floor: 1 },
+            { id: 'wodovorot', name: 'Wodovorot', icon: '💪', floor: 1 },
+        ];
+
+        const ROUTE_KOZH_SVALKA = [
+            { id: 1, photo: GITHUB_PHOTOS + 'IMG_9343.JPG', text: 'Вход с Кожевенной 34Ж', hint: 'После шлагбаума сразу направо', direction: 'forward' },
+            { id: 2, photo: GITHUB_PHOTOS + 'IMG_9342.JPG', text: 'Заходите в эту дверь', hint: 'Дверь с номером 3105', direction: 'forward' },
+            { id: 3, photo: GITHUB_PHOTOS + 'IMG_9341.JPG', text: 'Прямо и налево', hint: 'Следуйте указателям', direction: 'left' },
+            { id: 4, photo: GITHUB_PHOTOS + 'IMG_9340.JPG', text: 'Прямо по коридору', hint: 'Справа будет лестница', direction: 'forward' },
+            { id: 5, photo: GITHUB_PHOTOS + 'IMG_9339.JPG', text: 'Вход на лестницу', hint: 'Поднимаемся наверх', direction: 'up' },
+            { id: 6, photo: GITHUB_PHOTOS + 'IMG_9338.JPG', text: 'Поднимаемся', hint: 'На второй этаж', direction: 'up' },
+            { id: 7, photo: GITHUB_PHOTOS + 'IMG_9337.JPG', text: 'Второй этаж — налево', hint: 'Указатели SVALKA', direction: 'left' },
+            { id: 8, photo: GITHUB_PHOTOS + 'IMG_9336.JPG', text: 'В этот проход', hint: 'Почти пришли!', direction: 'forward' },
+            { id: 9, photo: GITHUB_PHOTOS + 'IMG_9335.JPG', text: 'Вы на месте!', hint: 'Добро пожаловать в SVALKA', direction: 'arrived', isFinal: true },
+        ];
+
+        // Состояние
+        let state = {
+            screen: 'map',
+            entrance: null,
+            place: null,
+            step: 1
+        };
+
+        // Иконки направлений
+        const directionIcons = { forward: '➡️', left: '⬅️', right: '➡️', up: '⬆️', arrived: '📍' };
+
+        // Рендер
+        function render() {
+            const app = document.getElementById('app');
+            
+            if (state.screen === 'map') {
+                app.innerHTML = renderMapScreen();
+            } else if (state.screen === 'place') {
+                app.innerHTML = renderPlaceScreen();
+            } else if (state.screen === 'route') {
+                app.innerHTML = renderRouteScreen();
+            }
+            
+            attachEvents();
+        }
+
+        function renderMapScreen() {
+            return `
+                <div class="min-h-screen flex flex-col">
+                    <header class="p-4 border-b border-gray-800 flex items-center gap-3">
+                        <span class="text-2xl">🧶</span>
+                        <span class="font-bold">Исткабель Гид</span>
+                    </header>
+                    
+                    <main class="flex-1 p-4">
+                        <h2 class="text-xl font-bold text-center mb-4">Откуда вы заходите?</h2>
+                        
+                        <div class="relative rounded-xl overflow-hidden border border-gray-700 bg-gray-900 aspect-video mb-4">
+                            <svg viewBox="0 0 100 62" class="w-full h-full">
+                                <rect x="0" y="0" width="100" height="62" fill="#111827"/>
+                                <rect x="15" y="15" width="60" height="40" rx="2" fill="#374151" opacity="0.3"/>
+                                <text x="45" y="35" fill="#6b7280" font-size="4" text-anchor="middle">ИСТКАБЕЛЬ</text>
+                            </svg>
+                            ${ENTRANCES.map(e => `
+                                <button 
+                                    class="entrance-marker absolute transform -translate-x-1/2 -translate-y-1/2 transition-transform hover:scale-110"
+                                    data-entrance="${e.id}"
+                                    style="left: ${e.x}%; top: ${e.y}%"
+                                >
+                                    <div class="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center text-lg shadow-lg" style="background: ${e.color}">🚪</div>
+                                </button>
+                            `).join('')}
+                        </div>
+                        
+                        <div class="space-y-2">
+                            ${ENTRANCES.map(e => `
+                                <button 
+                                    class="entrance-btn w-full p-4 rounded-xl text-left font-bold transition-transform"
+                                    data-entrance="${e.id}"
+                                    style="background: ${e.color}"
+                                >${e.name}</button>
+                            `).join('')}
+                        </div>
+                    </main>
+                </div>
+            `;
+        }
+
+        function renderPlaceScreen() {
+            return `
+                <div class="min-h-screen flex flex-col">
+                    <header class="p-4 border-b border-gray-800 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <button class="back-btn text-gray-400 text-xl">←</button>
+                            <span class="text-2xl">🧶</span>
+                            <span class="font-bold">Исткабель Гид</span>
+                        </div>
+                    </header>
+                    
+                    <main class="flex-1 p-4">
+                        <div class="text-center mb-4">
+                            <div class="text-gray-400 text-sm">Вы заходите через</div>
+                            <div class="text-xl font-bold" style="color: ${state.entrance.color}">${state.entrance.name}</div>
+                        </div>
+                        
+                        <h2 class="text-lg font-bold mb-3">Куда идём?</h2>
+                        
+                        <div class="space-y-2">
+                            ${PLACES.map(p => `
+                                <button 
+                                    class="place-btn w-full p-4 rounded-xl bg-gray-800 text-left flex items-center gap-3 transition-transform active:scale-98"
+                                    data-place="${p.id}"
+                                >
+                                    <span class="text-3xl">${p.icon}</span>
+                                    <div>
+                                        <div class="font-bold">${p.name}</div>
+                                        <div class="text-gray-400 text-sm">${p.floor} этаж</div>
+                                    </div>
+                                </button>
+                            `).join('')}
+                        </div>
+                    </main>
+                </div>
+            `;
+        }
+
+        function renderRouteScreen() {
+            const route = ROUTE_KOZH_SVALKA;
+            const currentStep = route[state.step - 1];
+            const isFirst = state.step === 1;
+            const isLast = state.step === route.length;
+
+            return `
+                <div class="min-h-screen flex flex-col">
+                    <header class="p-4 border-b border-gray-800 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <button class="back-btn text-gray-400 text-xl">←</button>
+                            <span class="text-2xl">🧶</span>
+                        </div>
+                        <div class="text-sm text-gray-400">${state.entrance.name} → ${state.place.name}</div>
+                    </header>
+                    
+                    <div class="h-1 bg-gray-800">
+                        <div class="h-full btn-primary transition-all duration-300" style="width: ${(state.step / route.length) * 100}%"></div>
+                    </div>
+                    
+                    <main class="flex-1 flex flex-col">
+                        <div class="relative flex-1 bg-gray-900 min-h-[250px]">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="loader animate-spin"></div>
+                            </div>
+                            <img 
+                                src="${currentStep.photo}" 
+                                alt="${currentStep.text}"
+                                class="absolute inset-0 w-full h-full object-cover"
+                                onload="this.style.opacity=1; this.previousElementSibling.style.display='none';"
+                                style="opacity: 0; transition: opacity 0.3s"
+                            />
+                            
+                            <div class="absolute top-3 left-3 bg-black/60 backdrop-blur rounded-full px-3 py-1 text-sm">
+                                <span class="text-orange-400 font-bold">${state.step}</span>
+                                <span class="text-gray-400">/${route.length}</span>
+                            </div>
+                            
+                            <div class="absolute top-3 right-3 bg-black/60 backdrop-blur rounded-full w-10 h-10 flex items-center justify-center text-xl">
+                                ${directionIcons[currentStep.direction]}
+                            </div>
+                            
+                            ${isLast ? `
+                                <div class="absolute inset-0 bg-black/50 flex items-center justify-center">
+                                    <div class="text-center animate-bounce">
+                                        <div class="text-6xl">🧶</div>
+                                        <div class="text-2xl font-bold mt-2">Добро пожаловать!</div>
+                                    </div>
+                                </div>
+                            ` : ''}
+                        </div>
+                        
+                        <div class="p-4 bg-gray-900 border-t border-gray-800">
+                            <div class="flex items-start gap-3 mb-4">
+                                <div class="text-3xl">${directionIcons[currentStep.direction]}</div>
+                                <div>
+                                    <div class="text-lg font-bold">${currentStep.text}</div>
+                                    <div class="text-gray-400 text-sm">${currentStep.hint}</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-3">
+                                <button 
+                                    class="prev-btn flex-1 py-3 rounded-xl bg-gray-700 font-medium ${isFirst ? 'opacity-30' : ''}"
+                                    ${isFirst ? 'disabled' : ''}
+                                >← Назад</button>
+                                <button 
+                                    class="next-btn flex-1 py-3 rounded-xl btn-primary font-bold ${isLast ? 'bg-green-600' : ''}"
+                                    ${isLast ? 'disabled' : ''}
+                                >${isLast ? '✓ Готово' : 'Дальше →'}</button>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            `;
+        }
+
+        function attachEvents() {
+            // Выбор входа
+            document.querySelectorAll('[data-entrance]').forEach(btn => {
+                btn.onclick = () => {
+                    const id = btn.dataset.entrance;
+                    state.entrance = ENTRANCES.find(e => e.id === id);
+                    state.screen = 'place';
+                    render();
+                };
+            });
+
+            // Выбор места
+            document.querySelectorAll('[data-place]').forEach(btn => {
+                btn.onclick = () => {
+                    const id = btn.dataset.place;
+                    state.place = PLACES.find(p => p.id === id);
+                    state.step = 1;
+                    state.screen = 'route';
+                    render();
+                };
+            });
+
+            // Назад
+            document.querySelectorAll('.back-btn').forEach(btn => {
+                btn.onclick = () => {
+                    if (state.screen === 'place') {
+                        state.screen = 'map';
+                        state.entrance = null;
+                    } else if (state.screen === 'route') {
+                        state.screen = 'place';
+                        state.place = null;
+                    }
+                    render();
+                };
+            });
+
+            // Навигация по шагам
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            
+            if (prevBtn) {
+                prevBtn.onclick = () => {
+                    if (state.step > 1) {
+                        state.step--;
+                        render();
+                    }
+                };
+            }
+            
+            if (nextBtn) {
+                nextBtn.onclick = () => {
+                    if (state.step < ROUTE_KOZH_SVALKA.length) {
+                        state.step++;
+                        render();
+                    }
+                };
+            }
+        }
+
+        // Старт
+        render();
+    </script>
+</body>
+</html>
