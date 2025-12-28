@@ -150,7 +150,7 @@
             { id: 15, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9372.JPG', text: 'Идём прямо!', hint: 'Продолжаем путь', direction: 'forward' },
             { id: 16, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9373.JPG', text: 'Всё ещё идём!', hint: 'Нам до конца', direction: 'forward' },
             { id: 17, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9374.JPG', text: 'Почти пришли', hint: 'Идём дальше', direction: 'forward' },
-            { id: 18, photo: GITHUB_PHOTOS_10203 + '1090.jpg', text: 'Прямо мимо граффити от <a href="https://t.me/nadya_street" target="_blank" style="color: #f97316; text-decoration: underline;">@nadya.o</a>', hint: 'Почти у цели', direction: 'forward' },
+            { id: 18, photo: GITHUB_PHOTOS_10203 + '1090.jpg', text: 'Прямо мимо граффити от @nadya.o', hint: 'Почти у цели', direction: 'forward', link: { text: '@nadya.o', url: 'https://t.me/nadya_street' } },
             { id: 19, photo: GITHUB_PHOTOS_10203 + '1091.jpg', text: 'Большой холл', hint: 'Дверь 10.203 справа, сразу после выхода на лестницу', direction: 'right' },
             { id: 20, photo: GITHUB_PHOTOS_10203 + '10203.jpg', text: 'Вы на месте!', hint: 'Добро пожаловать в 10.203', direction: 'arrived', isFinal: true },
         ];
@@ -433,7 +433,9 @@
                             <div class="flex items-start gap-2 mb-3 bg-gray-800 rounded-xl p-2">
                                 <div class="text-2xl">${directionIcons[currentStep.direction]}</div>
                                 <div>
-                                    <div class="font-bold text-white">${currentStep.text}</div>
+                                    <div class="font-bold text-white">${currentStep.link 
+                                        ? currentStep.text.replace(currentStep.link.text, `<a href="${currentStep.link.url}" target="_blank" style="color: #f97316; text-decoration: underline;">${currentStep.link.text}</a>`)
+                                        : currentStep.text}</div>
                                     <div class="text-gray-300 text-sm">${currentStep.hint}</div>
                                 </div>
                             </div>
