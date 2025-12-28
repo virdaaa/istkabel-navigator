@@ -74,6 +74,7 @@
             // { id: 'ritmy', name: 'Ритмы', icon: '🎵', floor: 1, category: 'Клуб' },
             // 2 ЭТАЖ
             { id: 'svalka', name: 'SVALKA', icon: '👕', floor: 2, category: 'Секонд-хенд' },
+            { id: '10203', name: '10.203', icon: '🎨', floor: 2, category: 'Выставочное пространство' },
             // { id: 'nami', name: 'NAMI', icon: '📷', floor: 2, category: 'Фотостудия' },
             // { id: 'loft-port', name: 'Лофт Порт', icon: '🏠', floor: 2, category: 'Лофт' },
             // { id: 'skellige', name: 'Скеллиге', icon: '🪓', floor: 2, category: 'Топоры' },
@@ -91,6 +92,20 @@
             { id: 7, photo: GITHUB_PHOTOS + 'IMG_9337.JPG', text: 'Второй этаж — налево', hint: 'Указатели SVALKA', direction: 'left' },
             { id: 8, photo: GITHUB_PHOTOS + 'IMG_9336.JPG', text: 'В этот проход', hint: 'Почти пришли!', direction: 'forward' },
             { id: 9, photo: GITHUB_PHOTOS + 'IMG_9335.JPG', text: 'Вы на месте!', hint: 'Добро пожаловать в SVALKA', direction: 'arrived', isFinal: true },
+        ];
+
+        // Маршрут к 10.203 от Кожевенной (шаги 1-6 как SVALKA, на 7 направо)
+        const GITHUB_PHOTOS_10203 = 'https://virdaaa.github.io/istkabel-navigator/images/route4-10203-koj/';
+        
+        const ROUTE_KOZH_10203 = [
+            { id: 1, photo: GITHUB_PHOTOS + 'IMG_9343.JPG', text: 'Вход с Кожевенной 34Ж', hint: 'После шлагбаума сразу направо', direction: 'forward' },
+            { id: 2, photo: GITHUB_PHOTOS + 'IMG_9342.JPG', text: 'Заходите в эту дверь', hint: 'Дверь с номером 3105', direction: 'forward' },
+            { id: 3, photo: GITHUB_PHOTOS + 'IMG_9341.JPG', text: 'Прямо и налево', hint: 'Следуйте указателям', direction: 'left' },
+            { id: 4, photo: GITHUB_PHOTOS + 'IMG_9340.JPG', text: 'Прямо по коридору', hint: 'Справа будет лестница', direction: 'forward' },
+            { id: 5, photo: GITHUB_PHOTOS + 'IMG_9339.JPG', text: 'Вход на лестницу', hint: 'Поднимаемся наверх', direction: 'up' },
+            { id: 6, photo: GITHUB_PHOTOS + 'IMG_9338.JPG', text: 'Поднимаемся', hint: 'На второй этаж', direction: 'up' },
+            { id: 7, photo: GITHUB_PHOTOS + 'IMG_9337.JPG', text: 'Второй этаж — направо', hint: 'К 10.203', direction: 'right' },
+            { id: 8, photo: GITHUB_PHOTOS_10203 + '10203.jpg', text: 'Вы на месте!', hint: 'Добро пожаловать в 10.203', direction: 'arrived', isFinal: true },
         ];
 
         const GITHUB_PHOTOS_DOMBYTA = 'https://virdaaa.github.io/istkabel-navigator/images/route2-dombyta/';
@@ -116,6 +131,30 @@
             { id: 18, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9375.JPG', text: 'Финиш — SVALKA!', hint: 'Добро пожаловать!', direction: 'arrived', isFinal: true },
         ];
 
+        // Маршрут к 10.203 от Дом быта (шаги 1-17 как SVALKA, потом другие)
+        const ROUTE_DOMBYTA_10203 = [
+            { id: 1, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9356.JPG', text: 'Вход "Дом быта"', hint: 'Заходим внутрь', direction: 'forward' },
+            { id: 2, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9357.JPG', text: 'В холле налево', hint: 'Следуйте указателям', direction: 'left' },
+            { id: 3, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9358.JPG', text: 'Идём до конца', hint: 'Слева магазин, поворот направо', direction: 'right' },
+            { id: 4, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9360.JPG', text: 'Прямо до карты', hint: 'Налево будет дверь', direction: 'left' },
+            { id: 5, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9361.JPG', text: 'Открываем эту дверь', hint: 'Маленькая дверь с "Выход"', direction: 'forward' },
+            { id: 6, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9362.JPG', text: 'Внутренний двор', hint: 'Направо, затем сразу налево', direction: 'right' },
+            { id: 7, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9363.JPG', text: 'Переулок с граффити', hint: 'Граффити справа', direction: 'forward' },
+            { id: 8, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9364.JPG', text: 'Дверь с круглыми окнами', hint: 'Справа вход', direction: 'right' },
+            { id: 9, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9365.JPG', text: 'Поднимаемся по лестнице', hint: 'На стене "Невидимый"', direction: 'up' },
+            { id: 10, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9367.JPG', text: 'Продолжаем подъём', hint: 'На второй этаж', direction: 'up' },
+            { id: 11, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9368.JPG', text: 'Дверь "Театр"', hint: 'Заходим в коридор', direction: 'forward' },
+            { id: 12, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9369.JPG', text: 'Коридор Невидимый театр', hint: 'Проходим насквозь, в конце налево', direction: 'left' },
+            { id: 13, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9370.JPG', text: 'Длинный коридор', hint: 'Идём до поворота направо', direction: 'forward' },
+            { id: 14, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9371.JPG', text: 'Поворот направо', hint: 'Здесь поворачиваем', direction: 'right' },
+            { id: 15, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9372.JPG', text: 'Идём прямо!', hint: 'Продолжаем путь', direction: 'forward' },
+            { id: 16, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9373.JPG', text: 'Всё ещё идём!', hint: 'Нам до конца', direction: 'forward' },
+            { id: 17, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9374.JPG', text: 'Почти пришли', hint: 'Идём дальше', direction: 'forward' },
+            { id: 18, photo: GITHUB_PHOTOS_10203 + '1090.jpg', text: 'Прямо мимо граффити от <a href="https://t.me/nadya_street" target="_blank" style="color: #f97316; text-decoration: underline;">@nadya.o</a>', hint: 'Почти у цели', direction: 'forward' },
+            { id: 19, photo: GITHUB_PHOTOS_10203 + '1091.jpg', text: 'Большой холл', hint: 'Дверь 10.203 справа, сразу после выхода на лестницу', direction: 'right' },
+            { id: 20, photo: GITHUB_PHOTOS_10203 + '10203.jpg', text: 'Вы на месте!', hint: 'Добро пожаловать в 10.203', direction: 'arrived', isFinal: true },
+        ];
+
         const GITHUB_PHOTOS_SEVCABLE = 'https://virdaaa.github.io/istkabel-navigator/images/route3-sevcable/';
         
         const ROUTE_SEVCABLE_SVALKA = [
@@ -134,11 +173,33 @@
             { id: 13, photo: GITHUB_PHOTOS_SEVCABLE + 'IMG_9375.JPG', text: 'Финиш — SVALKA!', hint: 'Добро пожаловать!', direction: 'arrived', isFinal: true },
         ];
 
+        // Маршрут к 10.203 от Севкабеля (шаги 1-11 как SVALKA, на 12 другая подпись)
+        const ROUTE_SEVCABLE_10203 = [
+            { id: 1, photo: GITHUB_PHOTOS_SEVCABLE + 'photo_2025-12-28_05-59-24.jpg', text: 'Парковка', hint: 'Идём прямо до конца в правый угол', direction: 'forward' },
+            { id: 2, photo: GITHUB_PHOTOS_SEVCABLE + 'photo_2025-12-28_05-59-25.jpg', text: 'Идём в угол', hint: 'Продолжаем прямо', direction: 'forward' },
+            { id: 3, photo: GITHUB_PHOTOS_SEVCABLE + 'photo_2025-12-28_05-59-25__2_.jpg', text: 'Дальше прямо', hint: 'К зданию', direction: 'forward' },
+            { id: 4, photo: GITHUB_PHOTOS_SEVCABLE + 'photo_2025-12-28_05-59-27.jpg', text: 'Идём прямо', hint: 'Продолжаем путь', direction: 'forward' },
+            { id: 5, photo: GITHUB_PHOTOS_SEVCABLE + 'photo_2025-12-28_05-59-27__2_.jpg', text: 'Прямо. Почти', hint: 'Скоро вход', direction: 'forward' },
+            { id: 6, photo: GITHUB_PHOTOS_SEVCABLE + 'photo_2025-12-28_05-59-28.jpg', text: 'Оранжевые ворота', hint: 'Входим', direction: 'forward' },
+            { id: 7, photo: GITHUB_PHOTOS_SEVCABLE + 'photo_2025-12-28_05-59-28__2_.jpg', text: 'Слева лестница наверх', hint: 'Нам на неё', direction: 'left' },
+            { id: 8, photo: GITHUB_PHOTOS_SEVCABLE + 'photo_2025-12-28_06-00-27.jpg', text: 'Поднимаемся', hint: 'На второй этаж', direction: 'up' },
+            { id: 9, photo: GITHUB_PHOTOS_SEVCABLE + 'photo_2025-12-28_06-00-28.jpg', text: 'Открываем дверь', hint: 'Нам внутрь и налево', direction: 'left' },
+            { id: 10, photo: GITHUB_PHOTOS_SEVCABLE + 'photo_2025-12-28_06-00-28__2_.jpg', text: 'Идём по коридору', hint: 'Прямо', direction: 'forward' },
+            { id: 11, photo: GITHUB_PHOTOS_SEVCABLE + 'photo_2025-12-28_06-00-28__3_.jpg', text: 'И дальше', hint: 'Почти пришли', direction: 'forward' },
+            { id: 12, photo: GITHUB_PHOTOS_SEVCABLE + 'photo_2025-12-28_06-00-29.jpg', text: 'Большой холл', hint: 'Уже вот оно! Чуть левее', direction: 'left' },
+            { id: 13, photo: GITHUB_PHOTOS_10203 + '10203.jpg', text: 'Вы на месте!', hint: 'Добро пожаловать в 10.203', direction: 'arrived', isFinal: true },
+        ];
+
         // Функция выбора маршрута
         function getRoute(entranceId, placeId) {
+            // SVALKA
             if (entranceId === 'kozh-34zh' && placeId === 'svalka') return ROUTE_KOZH_SVALKA;
             if (entranceId === 'dom-byta' && placeId === 'svalka') return ROUTE_DOMBYTA_SVALKA;
             if (entranceId === 'sevcable' && placeId === 'svalka') return ROUTE_SEVCABLE_SVALKA;
+            // 10.203
+            if (entranceId === 'kozh-34zh' && placeId === '10203') return ROUTE_KOZH_10203;
+            if (entranceId === 'dom-byta' && placeId === '10203') return ROUTE_DOMBYTA_10203;
+            if (entranceId === 'sevcable' && placeId === '10203') return ROUTE_SEVCABLE_10203;
             return null;
         }
 
@@ -153,6 +214,59 @@
 
         // Иконки направлений
         const directionIcons = { forward: '➡️', left: '⬅️', right: '➡️', up: '⬆️', down: '⬇️', arrived: '📍' };
+
+        // Генерация HTML списка мест
+        function generatePlacesListHTML() {
+            const filteredPlaces = PLACES.filter(p => 
+                p.name.toLowerCase().includes(state.searchQuery.toLowerCase()) ||
+                p.category.toLowerCase().includes(state.searchQuery.toLowerCase())
+            );
+            
+            return [1, 2, 3].map(floor => {
+                const placesOnFloor = filteredPlaces.filter(p => p.floor === floor);
+                if (placesOnFloor.length === 0) return '';
+                return `
+                    <div>
+                        <div class="text-xs text-gray-500 mb-2">${floor} ЭТАЖ</div>
+                        <div class="space-y-2">
+                            ${placesOnFloor.map(p => `
+                                <button 
+                                    class="place-select-btn w-full p-4 rounded-xl flex items-center justify-between"
+                                    data-place="${p.id}"
+                                    style="background: #1f2937;"
+                                >
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-2xl">${p.icon}</span>
+                                        <div class="text-left">
+                                            <div class="font-bold" style="color: #fff;">${p.name}</div>
+                                            <div class="text-sm" style="color: #9ca3af;">${p.category}</div>
+                                        </div>
+                                    </div>
+                                    <span style="color: #6b7280;">→</span>
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Обновление только списка мест (для поиска)
+        function updatePlacesList() {
+            const container = document.getElementById('places-list');
+            if (container) {
+                container.innerHTML = generatePlacesListHTML();
+                // Привязываем события к новым кнопкам
+                document.querySelectorAll('.place-select-btn').forEach(btn => {
+                    btn.onclick = () => {
+                        const id = btn.dataset.place;
+                        state.place = PLACES.find(p => p.id === id);
+                        state.screen = 'map';
+                        render();
+                    };
+                });
+            }
+        }
 
         // Рендер
         function render() {
@@ -170,10 +284,6 @@
         }
 
         function renderPlacesScreen() {
-            const filteredPlaces = PLACES.filter(p => 
-                p.name.toLowerCase().includes(state.searchQuery.toLowerCase())
-            );
-            
             return `
                 <div class="min-h-screen flex flex-col" style="background: #0a0a0a;">
                     <header class="p-4 border-b flex items-center gap-3" style="background: #111827; border-color: #1f2937;">
@@ -195,34 +305,8 @@
                         </div>
                         
                         <!-- Список мест по этажам -->
-                        <div class="space-y-4">
-                            ${[1, 2, 3].map(floor => {
-                                const placesOnFloor = filteredPlaces.filter(p => p.floor === floor);
-                                if (placesOnFloor.length === 0) return '';
-                                return `
-                                    <div>
-                                        <div class="text-xs text-gray-500 mb-2">${floor} ЭТАЖ</div>
-                                        <div class="space-y-2">
-                                            ${placesOnFloor.map(p => `
-                                                <button 
-                                                    class="place-select-btn w-full p-4 rounded-xl flex items-center justify-between"
-                                                    data-place="${p.id}"
-                                                    style="background: #1f2937;"
-                                                >
-                                                    <div class="flex items-center gap-3">
-                                                        <span class="text-2xl">${p.icon}</span>
-                                                        <div class="text-left">
-                                                            <div class="font-bold" style="color: #fff;">${p.name}</div>
-                                                            <div class="text-sm" style="color: #9ca3af;">${p.category || 'Винтаж'}</div>
-                                                        </div>
-                                                    </div>
-                                                    <span style="color: #6b7280;">→</span>
-                                                </button>
-                                            `).join('')}
-                                        </div>
-                                    </div>
-                                `;
-                            }).join('')}
+                        <div id="places-list" class="space-y-4">
+                            ${generatePlacesListHTML()}
                         </div>
                     </main>
                 </div>
@@ -377,15 +461,8 @@
             if (searchInput) {
                 searchInput.oninput = (e) => {
                     state.searchQuery = e.target.value;
-                    render();
-                    // Фокус обратно на поле
-                    setTimeout(() => {
-                        const input = document.getElementById('search-input');
-                        if (input) {
-                            input.focus();
-                            input.setSelectionRange(input.value.length, input.value.length);
-                        }
-                    }, 0);
+                    // Обновляем только список мест, не всю страницу
+                    updatePlacesList();
                 };
             }
 
