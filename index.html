@@ -41,21 +41,44 @@
     <div id="app"></div>
 
     <script>
-        // Telegram WebApp init
-        const tg = window.Telegram.WebApp;
-        tg.ready();
-        tg.expand();
+        // Telegram WebApp init (с проверкой для работы вне Telegram)
+        const tg = window.Telegram?.WebApp;
+        if (tg) {
+            tg.ready();
+            tg.expand();
+        }
 
         // Данные
         const GITHUB_PHOTOS = 'https://virdaaa.github.io/istkabel-navigator/images/route1-coworking/';
 
         const ENTRANCES = [
-            { id: 'dom-byta', name: 'Дом быта', color: '#3b82f6', x: 57.2, y: 80.1 },
-            { id: 'kozh-34zh', name: 'Кожевенная 34ж', color: '#8b5cf6', x: 12.8, y: 75.3 },
+            { id: 'kozh-34zh', name: 'Кожевенная 34ж', color: '#8b5cf6', x: 7, y: 68 },
+            { id: 'dom-byta', name: 'Дом быта', color: '#3b82f6', x: 48, y: 78 },
+            { id: 'sevcable', name: 'От Севкабеля', color: '#14b8a6', x: 90, y: 58 },
+        ];
+
+        const LANDMARKS = [
+            { id: 'kozh-line', name: 'Кожевенная линия', icon: '🛣️', x: 41.5, y: 87.7 },
+            { id: 'katok', name: 'Каток', icon: '⛸️', x: 88.1, y: 37.5 },
+            { id: 'bar-line', name: 'Барная линия', icon: '🍺', x: 43.5, y: 9.2 },
+            { id: 'zaliv', name: 'Финский залив', icon: '🌊', x: 43.5, y: 2.2 },
+            { id: 'pereulok', name: 'Нормальный переулок', icon: '🚶', x: 8.2, y: 49.9 },
         ];
 
         const PLACES = [
-            { id: 'svalka', name: 'SVALKA', icon: '👕', floor: 2 },
+            // 1 ЭТАЖ
+            // { id: 'machty', name: 'Мачты', icon: '🍸', floor: 1, category: 'Бар' },
+            // { id: 'nado-podumat', name: 'Надо подумать', icon: '💨', floor: 1, category: 'Кальянная' },
+            // { id: 'wodovorot', name: 'Wodovorot', icon: '💪', floor: 1, category: 'Спорт' },
+            // { id: 'barnaya', name: 'Барная линия', icon: '🍺', floor: 1, category: 'Бары' },
+            // { id: 'ritmy', name: 'Ритмы', icon: '🎵', floor: 1, category: 'Клуб' },
+            // 2 ЭТАЖ
+            { id: 'svalka', name: 'SVALKA', icon: '👕', floor: 2, category: 'Секонд-хенд' },
+            // { id: 'nami', name: 'NAMI', icon: '📷', floor: 2, category: 'Фотостудия' },
+            // { id: 'loft-port', name: 'Лофт Порт', icon: '🏠', floor: 2, category: 'Лофт' },
+            // { id: 'skellige', name: 'Скеллиге', icon: '🪓', floor: 2, category: 'Топоры' },
+            // 3 ЭТАЖ
+            // { id: 'metod', name: 'Метод', icon: '🎭', floor: 3, category: 'Квест' },
         ];
 
         const ROUTE_KOZH_SVALKA = [
@@ -93,32 +116,51 @@
             { id: 18, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9375.JPG', text: 'Финиш — SVALKA!', hint: 'Добро пожаловать!', direction: 'arrived', isFinal: true },
         ];
 
+        const GITHUB_PHOTOS_SEVCABLE = 'images/route3-sevcable/';
+        
+        const ROUTE_SEVCABLE_SVALKA = [
+            { id: 1, photo: GITHUB_PHOTOS_SEVCABLE + 'step01.jpg', text: 'Парковка', hint: 'Идём прямо до конца в угол', direction: 'forward' },
+            { id: 2, photo: GITHUB_PHOTOS_SEVCABLE + 'step02.jpg', text: 'Идём в угол', hint: 'Прямо по переулку', direction: 'forward' },
+            { id: 3, photo: GITHUB_PHOTOS_SEVCABLE + 'step03.jpg', text: 'Дальше прямо', hint: 'К красному зданию', direction: 'forward' },
+            { id: 4, photo: GITHUB_PHOTOS_SEVCABLE + 'step04.jpg', text: 'Идём прямо', hint: 'Слева граффити', direction: 'forward' },
+            { id: 5, photo: GITHUB_PHOTOS_SEVCABLE + 'step05.jpg', text: 'Прямо. Почти', hint: 'Под гирляндами', direction: 'forward' },
+            { id: 6, photo: GITHUB_PHOTOS_SEVCABLE + 'step06.jpg', text: 'Оранжевые ворота', hint: 'Входим', direction: 'forward' },
+            { id: 7, photo: GITHUB_PHOTOS_SEVCABLE + 'step07.jpg', text: 'Слева лестница наверх', hint: 'Нам на неё', direction: 'left' },
+            { id: 8, photo: GITHUB_PHOTOS_SEVCABLE + 'step08.jpg', text: 'Поднимаемся', hint: 'На второй этаж', direction: 'up' },
+            { id: 9, photo: GITHUB_PHOTOS_SEVCABLE + 'step09.jpg', text: 'Открываем дверь', hint: 'Нам внутрь и налево', direction: 'left' },
+            { id: 10, photo: GITHUB_PHOTOS_SEVCABLE + 'step10.jpg', text: 'Идём по коридору', hint: 'Прямо', direction: 'forward' },
+            { id: 11, photo: GITHUB_PHOTOS_SEVCABLE + 'step11.jpg', text: 'И дальше', hint: 'Почти пришли', direction: 'forward' },
+            { id: 12, photo: GITHUB_PHOTOS_SEVCABLE + 'step12.jpg', text: 'Финиш — SVALKA!', hint: 'Добро пожаловать!', direction: 'arrived', isFinal: true },
+        ];
+
         // Функция выбора маршрута
         function getRoute(entranceId, placeId) {
             if (entranceId === 'kozh-34zh' && placeId === 'svalka') return ROUTE_KOZH_SVALKA;
             if (entranceId === 'dom-byta' && placeId === 'svalka') return ROUTE_DOMBYTA_SVALKA;
+            if (entranceId === 'sevcable' && placeId === 'svalka') return ROUTE_SEVCABLE_SVALKA;
             return null;
         }
 
         // Состояние
         let state = {
-            screen: 'map',
+            screen: 'places',  // Начинаем с выбора места
             entrance: null,
             place: null,
-            step: 1
+            step: 1,
+            searchQuery: ''
         };
 
         // Иконки направлений
-        const directionIcons = { forward: '➡️', left: '⬅️', right: '➡️', up: '⬆️', arrived: '📍' };
+        const directionIcons = { forward: '➡️', left: '⬅️', right: '➡️', up: '⬆️', down: '⬇️', arrived: '📍' };
 
         // Рендер
         function render() {
             const app = document.getElementById('app');
             
-            if (state.screen === 'map') {
+            if (state.screen === 'places') {
+                app.innerHTML = renderPlacesScreen();
+            } else if (state.screen === 'map') {
                 app.innerHTML = renderMapScreen();
-            } else if (state.screen === 'place') {
-                app.innerHTML = renderPlaceScreen();
             } else if (state.screen === 'route') {
                 app.innerHTML = renderRouteScreen();
             }
@@ -126,30 +168,99 @@
             attachEvents();
         }
 
+        function renderPlacesScreen() {
+            const filteredPlaces = PLACES.filter(p => 
+                p.name.toLowerCase().includes(state.searchQuery.toLowerCase())
+            );
+            
+            return `
+                <div class="min-h-screen flex flex-col" style="background: #0a0a0a;">
+                    <header class="p-4 border-b flex items-center gap-3" style="background: #111827; border-color: #1f2937;">
+                        <span class="text-2xl">📍</span>
+                        <span class="font-bold" style="color: #ffffff;">Исткабель — куда идём?</span>
+                    </header>
+                    
+                    <main class="flex-1 p-4">
+                        <!-- Поиск -->
+                        <div class="mb-4">
+                            <input 
+                                type="text" 
+                                id="search-input"
+                                placeholder="🔍 Найти..."
+                                value="${state.searchQuery}"
+                                class="w-full p-3 rounded-xl border-0 outline-none"
+                                style="background: #374151; color: #fff; font-weight: 500;"
+                            />
+                        </div>
+                        
+                        <!-- Список мест по этажам -->
+                        <div class="space-y-4">
+                            ${[1, 2, 3].map(floor => {
+                                const placesOnFloor = filteredPlaces.filter(p => p.floor === floor);
+                                if (placesOnFloor.length === 0) return '';
+                                return `
+                                    <div>
+                                        <div class="text-xs text-gray-500 mb-2">${floor} ЭТАЖ</div>
+                                        <div class="space-y-2">
+                                            ${placesOnFloor.map(p => `
+                                                <button 
+                                                    class="place-select-btn w-full p-4 rounded-xl flex items-center justify-between"
+                                                    data-place="${p.id}"
+                                                    style="background: #1f2937;"
+                                                >
+                                                    <div class="flex items-center gap-3">
+                                                        <span class="text-2xl">${p.icon}</span>
+                                                        <div class="text-left">
+                                                            <div class="font-bold" style="color: #fff;">${p.name}</div>
+                                                            <div class="text-sm" style="color: #9ca3af;">${p.category || 'Винтаж'}</div>
+                                                        </div>
+                                                    </div>
+                                                    <span style="color: #6b7280;">→</span>
+                                                </button>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </main>
+                </div>
+            `;
+        }
+
         function renderMapScreen() {
             return `
                 <div class="min-h-screen flex flex-col" style="background: #0a0a0a;">
                     <header class="p-4 border-b flex items-center gap-3" style="background: #111827; border-color: #1f2937;">
-                        <span class="text-2xl">🧶</span>
-                        <span class="font-bold" style="color: #ffffff;">Исткабель Гид</span>
+                        <button class="back-to-places text-xl" style="color: #9ca3af;">←</button>
+                        <span class="text-2xl">${state.place?.icon || '📍'}</span>
+                        <span class="font-bold" style="color: #ffffff;">Идём в ${state.place?.name || ''}</span>
                     </header>
                     
                     <main class="flex-1 p-4">
                         <h2 class="text-xl font-bold text-center mb-4" style="color: #ffffff;">Откуда вы заходите?</h2>
                         
-                        <div class="relative rounded-xl overflow-hidden border border-gray-700 aspect-video mb-4" style="background: #111827;">
-                            <svg viewBox="0 0 100 62" class="w-full h-full">
-                                <rect x="0" y="0" width="100" height="62" fill="#111827"/>
-                                <rect x="15" y="15" width="60" height="40" rx="2" fill="#374151" opacity="0.3"/>
-                                <text x="45" y="35" fill="#6b7280" font-size="4" text-anchor="middle">ИСТКАБЕЛЬ</text>
-                            </svg>
+                        <div class="relative rounded-xl overflow-hidden border border-gray-700 mb-4" style="background: #111827;">
+                            <!-- Фото карты -->
+                            <img 
+                                src="map.webp" 
+                                alt="Карта Исткабель"
+                                class="w-full h-auto"
+                                style="display: block;"
+                            />
+                            
+                            <!-- Надпись Барная линия -->
+                            <div class="absolute text-center" style="left: 50%; top: 18%; transform: translateX(-50%); color: #374151; font-size: 36px; font-weight: 500;">Барная линия</div>
+                            
+                            <!-- Входы -->
                             ${ENTRANCES.map(e => `
                                 <button 
                                     class="entrance-marker absolute transform -translate-x-1/2 -translate-y-1/2 transition-transform hover:scale-110"
                                     data-entrance="${e.id}"
                                     style="left: ${e.x}%; top: ${e.y}%"
                                 >
-                                    <div class="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center text-lg shadow-lg" style="background: ${e.color}">🚪</div>
+                                    <div class="w-9 h-9 rounded-full border-2 border-white flex items-center justify-center text-base shadow-lg" style="background: ${e.color}">🚪</div>
+                                    <div class="absolute top-10 left-1/2 -translate-x-1/2 text-xs px-2 py-1 rounded whitespace-nowrap font-medium shadow-lg" style="background: ${e.color}; color: #fff;">${e.name}</div>
                                 </button>
                             `).join('')}
                         </div>
@@ -161,45 +272,6 @@
                                     data-entrance="${e.id}"
                                     style="background: ${e.color}; color: #ffffff;"
                                 >${e.name}</button>
-                            `).join('')}
-                        </div>
-                    </main>
-                </div>
-            `;
-        }
-
-        function renderPlaceScreen() {
-            return `
-                <div class="min-h-screen flex flex-col" style="background: #0a0a0a;">
-                    <header class="p-4 border-b flex items-center justify-between" style="background: #111827; border-color: #1f2937;">
-                        <div class="flex items-center gap-3">
-                            <button class="back-btn text-xl" style="color: #9ca3af;">←</button>
-                            <span class="text-2xl">🧶</span>
-                            <span class="font-bold" style="color: #ffffff;">Исткабель Гид</span>
-                        </div>
-                    </header>
-                    
-                    <main class="flex-1 p-4">
-                        <div class="text-center mb-4">
-                            <div class="text-sm" style="color: #9ca3af;">Вы заходите через</div>
-                            <div class="text-xl font-bold" style="color: ${state.entrance.color}">${state.entrance.name}</div>
-                        </div>
-                        
-                        <h2 class="text-lg font-bold mb-3" style="color: #ffffff;">Куда идём?</h2>
-                        
-                        <div class="space-y-2">
-                            ${PLACES.map(p => `
-                                <button 
-                                    class="place-btn w-full p-4 rounded-xl text-left flex items-center gap-3 transition-transform active:scale-98"
-                                    data-place="${p.id}"
-                                    style="background: #1f2937;"
-                                >
-                                    <span class="text-3xl">${p.icon}</span>
-                                    <div>
-                                        <div class="font-bold" style="color: #ffffff;">${p.name}</div>
-                                        <div class="text-sm" style="color: #9ca3af;">${p.floor} этаж</div>
-                                    </div>
-                                </button>
                             `).join('')}
                         </div>
                     </main>
@@ -299,36 +371,60 @@
         }
 
         function attachEvents() {
-            // Выбор входа
-            document.querySelectorAll('[data-entrance]').forEach(btn => {
+            // Поиск мест
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) {
+                searchInput.oninput = (e) => {
+                    state.searchQuery = e.target.value;
+                    render();
+                    // Фокус обратно на поле
+                    setTimeout(() => {
+                        const input = document.getElementById('search-input');
+                        if (input) {
+                            input.focus();
+                            input.setSelectionRange(input.value.length, input.value.length);
+                        }
+                    }, 0);
+                };
+            }
+
+            // Выбор места из списка
+            document.querySelectorAll('.place-select-btn').forEach(btn => {
                 btn.onclick = () => {
-                    const id = btn.dataset.entrance;
-                    state.entrance = ENTRANCES.find(e => e.id === id);
-                    state.screen = 'place';
+                    const id = btn.dataset.place;
+                    state.place = PLACES.find(p => p.id === id);
+                    state.screen = 'map';
                     render();
                 };
             });
 
-            // Выбор места
-            document.querySelectorAll('[data-place]').forEach(btn => {
+            // Выбор входа на карте
+            document.querySelectorAll('[data-entrance]').forEach(btn => {
                 btn.onclick = () => {
-                    const id = btn.dataset.place;
-                    state.place = PLACES.find(p => p.id === id);
+                    const id = btn.dataset.entrance;
+                    state.entrance = ENTRANCES.find(e => e.id === id);
                     state.step = 1;
                     state.screen = 'route';
                     render();
                 };
             });
 
-            // Назад
+            // Назад к списку мест
+            document.querySelectorAll('.back-to-places').forEach(btn => {
+                btn.onclick = () => {
+                    state.screen = 'places';
+                    state.place = null;
+                    render();
+                };
+            });
+
+            // Назад в маршруте
             document.querySelectorAll('.back-btn').forEach(btn => {
                 btn.onclick = () => {
-                    if (state.screen === 'place') {
+                    if (state.screen === 'route') {
                         state.screen = 'map';
                         state.entrance = null;
-                    } else if (state.screen === 'route') {
-                        state.screen = 'place';
-                        state.place = null;
+                        state.step = 1;
                     }
                     render();
                 };
@@ -337,10 +433,11 @@
             // Домой (на главную)
             document.querySelectorAll('.home-btn').forEach(btn => {
                 btn.onclick = () => {
-                    state.screen = 'map';
+                    state.screen = 'places';
                     state.entrance = null;
                     state.place = null;
                     state.step = 1;
+                    state.searchQuery = '';
                     render();
                 };
             });
@@ -366,10 +463,11 @@
                         render();
                     } else if (route && state.step === route.length) {
                         // Финиш — возврат на главную
-                        state.screen = 'map';
+                        state.screen = 'places';
                         state.entrance = null;
                         state.place = null;
                         state.step = 1;
+                        state.searchQuery = '';
                         render();
                     }
                 };
