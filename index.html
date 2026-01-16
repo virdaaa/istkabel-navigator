@@ -5,23 +5,137 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>🧶 Исткабель Гид</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* Base reset and global styles */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html, body, #app { height: 100%; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a !important; color: #ffffff !important; min-height: 100vh; min-height: -webkit-fill-available; overflow-x: hidden; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #ffffff; min-height: 100vh; min-height: -webkit-fill-available; overflow-x: hidden; }
+        button { font-family: inherit; border: none; cursor: pointer; background: none; }
+        input { font-family: inherit; }
+
+        /* Layout utilities */
         .min-h-screen { min-height: 100vh; min-height: -webkit-fill-available; }
-        .btn-primary { background: linear-gradient(135deg, #ef4444 0%, #f97316 100%); color: #fff !important; }
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .flex-1 { flex: 1 1 0%; }
+        .items-center { align-items: center; }
+        .items-start { align-items: flex-start; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+        .gap-2 { gap: 0.5rem; }
+        .gap-3 { gap: 0.75rem; }
+        .space-y-2 > * + * { margin-top: 0.5rem; }
+        .space-y-4 > * + * { margin-top: 1rem; }
+        .w-full { width: 100%; }
+        .w-8 { width: 2rem; }
+        .w-10 { width: 2.5rem; }
+        .h-1 { height: 0.25rem; }
+        .h-8 { height: 2rem; }
+        .h-10 { height: 2.5rem; }
+        .h-full { height: 100%; }
+        .h-auto { height: auto; }
+
+        /* Spacing */
+        .p-2 { padding: 0.5rem; }
+        .p-3 { padding: 0.75rem; }
+        .p-4 { padding: 1rem; }
+        .px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
+        .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+        .py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+        .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+        .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-3 { margin-bottom: 0.75rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mt-2 { margin-top: 0.5rem; }
+        .ml-2 { margin-left: 0.5rem; }
+
+        /* Typography */
+        .text-xs { font-size: 0.75rem; line-height: 1rem; }
+        .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+        .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+        .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+        .text-2xl { font-size: 1.5rem; line-height: 2rem; }
+        .text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
+        .text-5xl { font-size: 3rem; line-height: 1; }
+        .text-6xl { font-size: 3.75rem; line-height: 1; }
+        .font-medium { font-weight: 500; }
+        .font-bold { font-weight: 700; }
+        .text-left { text-align: left; }
+        .text-center { text-align: center; }
+
+        /* Colors */
+        .text-white { color: #ffffff; }
+        .text-gray-300 { color: #d1d5db; }
+        .text-gray-400 { color: #9ca3af; }
+        .text-gray-500 { color: #6b7280; }
+        .text-orange-400 { color: #fb923c; }
+        .bg-gray-700 { background-color: #374151; }
+        .bg-gray-800 { background-color: #1f2937; }
+        .bg-gray-900 { background-color: #111827; }
+
+        /* Borders */
+        .border { border-width: 1px; border-style: solid; }
+        .border-2 { border-width: 2px; border-style: solid; }
+        .border-b { border-bottom-width: 1px; border-bottom-style: solid; }
+        .border-t { border-top-width: 1px; border-top-style: solid; }
+        .border-white { border-color: #ffffff; }
+        .border-gray-700 { border-color: #374151; }
+        .border-gray-800 { border-color: #1f2937; }
+        .rounded-xl { border-radius: 0.75rem; }
+        .rounded-full { border-radius: 9999px; }
+
+        /* Positioning */
+        .relative { position: relative; }
+        .absolute { position: absolute; }
+        .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+        .top-2 { top: 0.5rem; }
+        .left-2 { left: 0.5rem; }
+        .right-2 { right: 0.5rem; }
+        .transform { transform: translateX(var(--tw-translate-x, 0)) translateY(var(--tw-translate-y, 0)); }
+        .-translate-x-1\/2 { --tw-translate-x: -50%; transform: translateX(-50%) translateY(var(--tw-translate-y, 0)); }
+        .-translate-y-1\/2 { --tw-translate-y: -50%; transform: translateX(var(--tw-translate-x, 0)) translateY(-50%); }
+        .-translate-x-1\/2.-translate-y-1\/2 { transform: translate(-50%, -50%); }
+
+        /* Effects */
+        .overflow-hidden { overflow: hidden; }
+        .outline-none { outline: none; }
+        .opacity-30 { opacity: 0.3; }
+        .opacity-80 { opacity: 0.8; }
+        .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1); }
+        .backdrop-blur { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+        .bg-black-60 { background-color: rgba(0,0,0,0.6); }
+        .bg-black-50 { background-color: rgba(0,0,0,0.5); }
+        .object-cover { object-fit: cover; }
+
+        /* Transitions */
+        .transition-transform { transition-property: transform; transition-timing-function: cubic-bezier(0.4,0,0.2,1); transition-duration: 150ms; }
+        .transition-all { transition-property: all; transition-timing-function: cubic-bezier(0.4,0,0.2,1); transition-duration: 150ms; }
+        .duration-300 { transition-duration: 300ms; }
+        .hover-scale:hover { transform: scale(1.1); }
+
+        /* Component styles */
+        .btn-primary { background: linear-gradient(135deg, #ef4444 0%, #f97316 100%); color: #fff; }
         .btn-primary:active { transform: scale(0.98); }
-        .entrance-btn { color: #fff !important; }
+        .entrance-btn { color: #fff; }
         .entrance-btn:active { transform: scale(0.98); }
-        header { background: #111827 !important; border-color: #1f2937 !important; }
+        header { background: #111827; border-color: #1f2937; }
+        .route-photo { background: #111827; }
+        .loader { border: 4px solid rgba(255,255,255,0.1); border-top-color: #f97316; border-radius: 50%; width: 48px; height: 48px; }
+
+        /* Cursor */
+        .cursor-pointer { cursor: pointer; }
+
+        /* Website link icon */
+        .website-link { padding: 0.5rem; border-radius: 0.5rem; transition: background-color 0.15s; }
+        .website-link:hover { background-color: rgba(255,255,255,0.1); }
+        .website-link:active { background-color: rgba(255,255,255,0.2); }
+
+        /* Animations */
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         .animate-bounce { animation: bounce 1s infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
         .animate-spin { animation: spin 1s linear infinite; }
-        .loader { border: 4px solid rgba(255,255,255,0.1); border-top-color: #f97316; border-radius: 50%; width: 48px; height: 48px; }
-        .route-photo { background: #111827; }
     </style>
 </head>
 <body>
@@ -46,12 +160,12 @@
         ];
 
         const PLACES = [
-            { id: 'nado-podumat', name: 'Надо подумать', icon: '💨', floor: 1, category: 'Кальянная' },
-            { id: 'wodovorot', name: 'Wodovorot', icon: '💪', floor: 1, category: 'Спорт' },
-            { id: 'balkan', name: 'Балкан', icon: '🍖', floor: 1, category: 'Ресторан' },
-            { id: 'svalka', name: 'SVALKA', icon: '👕', floor: 2, category: 'Секонд-хенд' },
-            { id: '10203', name: '10.203', icon: '🎨', floor: 2, category: 'Выставочное пространство' },
-            { id: 'skellige', name: 'Топоры Скеллиге', icon: '🪓', floor: 2, category: 'Метальня' },
+            { id: 'nado-podumat', name: 'Надо подумать', icon: '💨', floor: 1, category: 'Кальянная', website: 'https://nadopodumat.ru/' },
+            { id: 'wodovorot', name: 'Wodovorot', icon: '💪', floor: 1, category: 'Спорт', website: 'https://wodovorot.ru/' },
+            { id: 'balkan', name: 'Балкан', icon: '🍖', floor: 1, category: 'Ресторан', website: 'https://balkanresto.ru/' },
+            { id: 'svalka', name: 'SVALKA', icon: '👕', floor: 2, category: 'Секонд-хенд', website: 'https://svalkasevkabel.ru' },
+            { id: '10203', name: '10.203', icon: '🎨', floor: 2, category: 'Выставочное пространство', website: 'https://10203.space/exhibitions/' },
+            { id: 'skellige', name: 'Топоры Скеллиге', icon: '🪓', floor: 2, category: 'Метальня', website: 'https://t.me/tprskellige' },
         ];
 
         const ROUTE_TIMES = {
@@ -334,7 +448,7 @@
             return [1, 2, 3].map(floor => {
                 const placesOnFloor = filteredPlaces.filter(p => p.floor === floor);
                 if (placesOnFloor.length === 0) return '';
-                return '<div><div class="text-xs text-gray-500 mb-2">' + floor + ' ЭТАЖ</div><div class="space-y-2">' + placesOnFloor.map(p => '<button class="place-select-btn w-full p-4 rounded-xl flex items-center justify-between" data-place="' + p.id + '" style="background: #1f2937;"><div class="flex items-center gap-3"><span class="text-2xl">' + p.icon + '</span><div class="text-left"><div class="font-bold" style="color: #fff;">' + p.name + '</div><div class="text-sm" style="color: #9ca3af;">' + p.category + '</div></div></div><span style="color: #6b7280;">→</span></button>').join('') + '</div></div>';
+                return '<div><div class="text-xs text-gray-500 mb-2">' + floor + ' ЭТАЖ</div><div class="space-y-2">' + placesOnFloor.map(p => '<div class="place-card w-full p-4 rounded-xl flex items-center justify-between" data-place="' + p.id + '" style="background: #1f2937;"><div class="place-select-btn flex items-center gap-3 flex-1 cursor-pointer"><span class="text-2xl">' + p.icon + '</span><div class="text-left"><div class="font-bold" style="color: #fff;">' + p.name + '</div><div class="text-sm" style="color: #9ca3af;">' + p.category + '</div></div></div><div class="flex items-center gap-2">' + (p.website ? '<a href="' + p.website + '" target="_blank" rel="noopener noreferrer" class="website-link text-xl" onclick="event.stopPropagation();" title="Открыть сайт">🌐</a>' : '') + '<span class="place-select-btn cursor-pointer" style="color: #6b7280; padding: 0.5rem;">→</span></div></div>').join('') + '</div></div>';
             }).join('');
         }
 
@@ -342,10 +456,22 @@
             const container = document.getElementById('places-list');
             if (container) {
                 container.innerHTML = generatePlacesListHTML();
-                document.querySelectorAll('.place-select-btn').forEach(btn => {
-                    btn.onclick = () => { state.place = PLACES.find(p => p.id === btn.dataset.place); state.screen = 'map'; render(); };
-                });
+                attachPlaceCardEvents();
             }
+        }
+
+        function attachPlaceCardEvents() {
+            document.querySelectorAll('.place-card').forEach(card => {
+                const placeId = card.dataset.place;
+                card.querySelectorAll('.place-select-btn').forEach(btn => {
+                    btn.onclick = (e) => {
+                        e.stopPropagation();
+                        state.place = PLACES.find(p => p.id === placeId);
+                        state.screen = 'map';
+                        render();
+                    };
+                });
+            });
         }
 
         function render() {
@@ -361,7 +487,7 @@
         }
 
         function renderMapScreen() {
-            return '<div class="min-h-screen flex flex-col" style="background: #0a0a0a;"><header class="p-4 border-b flex items-center gap-3" style="background: #111827; border-color: #1f2937;"><button class="back-to-places text-xl" style="color: #9ca3af;">←</button><span class="text-2xl">' + (state.place?.icon || '📍') + '</span><span class="font-bold" style="color: #ffffff;">Идём в ' + (state.place?.name || '') + '</span></header><main class="flex-1 p-4"><h2 class="text-xl font-bold text-center mb-4" style="color: #ffffff;">Откуда вы заходите?</h2><div class="relative rounded-xl overflow-hidden border border-gray-700 mb-4" style="background: #111827;"><img src="https://virdaaa.github.io/istkabel-navigator/map.webp" alt="Карта Исткабель" class="w-full h-auto" style="display: block;" /><div class="absolute text-center" style="left: 50%; top: 18%; transform: translateX(-50%); color: #374151; font-size: 5vw; font-weight: 500;">Барная линия</div>' + ENTRANCES.map(e => '<button class="entrance-marker absolute transform -translate-x-1/2 -translate-y-1/2 transition-transform hover:scale-110" data-entrance="' + e.id + '" style="left: ' + e.x + '%; top: ' + e.y + '%"><div class="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center text-lg shadow-lg" style="background: ' + e.color + '">🚪</div></button>').join('') + '</div><div class="space-y-2">' + ENTRANCES.map(e => { const time = getRouteTime(e.id, state.place?.id); const timeStr = formatTime(time); return '<button class="entrance-btn w-full p-4 rounded-xl text-left font-bold transition-transform flex justify-between items-center" data-entrance="' + e.id + '" style="background: ' + e.color + '; color: #ffffff;"><span>' + e.name + '</span>' + (timeStr ? '<span class="text-sm opacity-80">' + timeStr + '</span>' : '') + '</button>'; }).join('') + '</div></main></div>';
+            return '<div class="min-h-screen flex flex-col" style="background: #0a0a0a;"><header class="p-4 border-b flex items-center gap-3" style="background: #111827; border-color: #1f2937;"><button class="back-to-places text-xl" style="color: #9ca3af;">←</button><span class="text-2xl">' + (state.place?.icon || '📍') + '</span><span class="font-bold" style="color: #ffffff;">Идём в ' + (state.place?.name || '') + '</span></header><main class="flex-1 p-4"><h2 class="text-xl font-bold text-center mb-4" style="color: #ffffff;">Откуда вы заходите?</h2><div class="relative rounded-xl overflow-hidden border border-gray-700 mb-4" style="background: #111827;"><img src="https://virdaaa.github.io/istkabel-navigator/map.webp" alt="Карта Исткабель" class="w-full h-auto" style="display: block;" /><div class="absolute text-center" style="left: 50%; top: 18%; transform: translateX(-50%); color: #374151; font-size: 5vw; font-weight: 500;">Барная линия</div>' + ENTRANCES.map(e => '<button class="entrance-marker absolute transform -translate-x-1/2 -translate-y-1/2 transition-transform hover-scale" data-entrance="' + e.id + '" style="left: ' + e.x + '%; top: ' + e.y + '%"><div class="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center text-lg shadow-lg" style="background: ' + e.color + '">🚪</div></button>').join('') + '</div><div class="space-y-2">' + ENTRANCES.map(e => { const time = getRouteTime(e.id, state.place?.id); const timeStr = formatTime(time); return '<button class="entrance-btn w-full p-4 rounded-xl text-left font-bold transition-transform flex justify-between items-center" data-entrance="' + e.id + '" style="background: ' + e.color + '; color: #ffffff;"><span>' + e.name + '</span>' + (timeStr ? '<span class="text-sm opacity-80">' + timeStr + '</span>' : '') + '</button>'; }).join('') + '</div></main></div>';
         }
 
         function renderRouteScreen() {
@@ -372,13 +498,13 @@
             const isLast = state.step === route.length;
             const time = getRouteTime(state.entrance.id, state.place.id);
             const timeStr = formatTime(time);
-            return '<div class="min-h-screen flex flex-col"><header class="p-4 border-b border-gray-800 flex items-center justify-between"><div class="flex items-center gap-3"><button class="back-btn text-gray-400 text-xl">←</button><span class="text-2xl">🧶</span></div><div class="text-sm text-gray-400">' + state.entrance.name + ' → ' + state.place.name + (timeStr ? ' <span class="ml-2 text-orange-400">' + timeStr + '</span>' : '') + '</div><button class="home-btn text-xl">🏠</button></header><div class="h-1 bg-gray-800"><div class="h-full btn-primary transition-all duration-300" style="width: ' + (state.step / route.length) * 100 + '%"></div></div><main class="flex-1 flex flex-col overflow-hidden"><div class="relative route-photo" style="flex: 1 1 auto; min-height: 180px; max-height: 50vh;"><div class="photo-loader absolute inset-0 flex items-center justify-center"><div class="loader animate-spin"></div></div><img src="' + currentStep.photo + '" alt="' + currentStep.text + '" class="absolute inset-0 w-full h-full object-cover" crossorigin="anonymous" onload="this.style.opacity=1; this.parentElement.querySelector(\'.photo-loader\').style.display=\'none\';" onerror="this.parentElement.querySelector(\'.photo-loader\').innerHTML=\'<div class=\\\'text-center\\\'><div class=\\\'text-4xl mb-2\\\'>📷</div><div class=\\\'text-gray-400 text-sm\\\'>Фото загружается...</div></div>\';" style="opacity: 0; transition: opacity 0.3s" /><div class="absolute top-2 left-2 bg-black/60 backdrop-blur rounded-full px-2 py-1 text-sm"><span class="text-orange-400 font-bold">' + state.step + '</span><span class="text-gray-400">/' + route.length + '</span></div><div class="absolute top-2 right-2 bg-black/60 backdrop-blur rounded-full w-8 h-8 flex items-center justify-center text-lg">' + directionIcons[currentStep.direction] + '</div>' + (isLast ? '<div class="absolute inset-0 bg-black/50 flex items-center justify-center"><div class="text-center animate-bounce"><div class="text-5xl">🧶</div><div class="text-xl font-bold mt-2">Добро пожаловать!</div></div></div>' : '') + '</div><div class="p-3 bg-gray-900 border-t border-gray-800" style="flex-shrink: 0;"><div class="flex items-start gap-2 mb-3 bg-gray-800 rounded-xl p-2"><div class="text-2xl">' + directionIcons[currentStep.direction] + '</div><div><div class="font-bold text-white">' + currentStep.text + '</div><div class="text-gray-300 text-sm">' + currentStep.hint + '</div></div></div><div class="flex gap-3"><button class="prev-btn flex-1 py-4 rounded-xl bg-gray-700 font-medium text-lg ' + (isFirst ? 'opacity-30' : '') + '" style="color: #fff;" ' + (isFirst ? 'disabled' : '') + '>← Назад</button><button class="next-btn flex-1 py-4 rounded-xl btn-primary font-bold text-lg" style="' + (isLast ? 'background: #16a34a;' : '') + '">' + (isLast ? '🏠 На главную' : 'Дальше →') + '</button></div></div></main></div>';
+            return '<div class="min-h-screen flex flex-col"><header class="p-4 border-b border-gray-800 flex items-center justify-between"><div class="flex items-center gap-3"><button class="back-btn text-gray-400 text-xl">←</button><span class="text-2xl">🧶</span></div><div class="text-sm text-gray-400">' + state.entrance.name + ' → ' + state.place.name + (timeStr ? ' <span class="ml-2 text-orange-400">' + timeStr + '</span>' : '') + '</div><button class="home-btn text-xl">🏠</button></header><div class="h-1 bg-gray-800"><div class="h-full btn-primary transition-all duration-300" style="width: ' + (state.step / route.length) * 100 + '%"></div></div><main class="flex-1 flex flex-col overflow-hidden"><div class="relative route-photo" style="flex: 1 1 auto; min-height: 180px; max-height: 50vh;"><div class="photo-loader absolute inset-0 flex items-center justify-center"><div class="loader animate-spin"></div></div><img src="' + currentStep.photo + '" alt="' + currentStep.text + '" class="absolute inset-0 w-full h-full object-cover" crossorigin="anonymous" onload="this.style.opacity=1; this.parentElement.querySelector(\'.photo-loader\').style.display=\'none\';" onerror="this.parentElement.querySelector(\'.photo-loader\').innerHTML=\'<div class=\\\'text-center\\\'><div class=\\\'text-4xl mb-2\\\'>📷</div><div class=\\\'text-gray-400 text-sm\\\'>Фото загружается...</div></div>\';" style="opacity: 0; transition: opacity 0.3s" /><div class="absolute top-2 left-2 bg-black-60 backdrop-blur rounded-full px-2 py-1 text-sm"><span class="text-orange-400 font-bold">' + state.step + '</span><span class="text-gray-400">/' + route.length + '</span></div><div class="absolute top-2 right-2 bg-black-60 backdrop-blur rounded-full w-8 h-8 flex items-center justify-center text-lg">' + directionIcons[currentStep.direction] + '</div>' + (isLast ? '<div class="absolute inset-0 bg-black-50 flex items-center justify-center"><div class="text-center animate-bounce"><div class="text-5xl">🧶</div><div class="text-xl font-bold mt-2">Добро пожаловать!</div></div></div>' : '') + '</div><div class="p-3 bg-gray-900 border-t border-gray-800" style="flex-shrink: 0;"><div class="flex items-start gap-2 mb-3 bg-gray-800 rounded-xl p-2"><div class="text-2xl">' + directionIcons[currentStep.direction] + '</div><div><div class="font-bold text-white">' + currentStep.text + '</div><div class="text-gray-300 text-sm">' + currentStep.hint + '</div></div></div><div class="flex gap-3"><button class="prev-btn flex-1 py-4 rounded-xl bg-gray-700 font-medium text-lg ' + (isFirst ? 'opacity-30' : '') + '" style="color: #fff;" ' + (isFirst ? 'disabled' : '') + '>← Назад</button><button class="next-btn flex-1 py-4 rounded-xl btn-primary font-bold text-lg" style="' + (isLast ? 'background: #16a34a;' : '') + '">' + (isLast ? '🏠 На главную' : 'Дальше →') + '</button></div></div></main></div>';
         }
 
         function attachEvents() {
             const searchInput = document.getElementById('search-input');
             if (searchInput) searchInput.oninput = (e) => { state.searchQuery = e.target.value; updatePlacesList(); };
-            document.querySelectorAll('.place-select-btn').forEach(btn => { btn.onclick = () => { state.place = PLACES.find(p => p.id === btn.dataset.place); state.screen = 'map'; render(); }; });
+            attachPlaceCardEvents();
             document.querySelectorAll('[data-entrance]').forEach(btn => { btn.onclick = () => { state.entrance = ENTRANCES.find(e => e.id === btn.dataset.entrance); state.step = 1; state.screen = 'route'; render(); }; });
             document.querySelectorAll('.back-to-places').forEach(btn => { btn.onclick = () => { state.screen = 'places'; state.place = null; render(); }; });
             document.querySelectorAll('.back-btn').forEach(btn => { btn.onclick = () => { if (state.screen === 'route') { state.screen = 'map'; state.entrance = null; state.step = 1; } render(); }; });
