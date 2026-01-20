@@ -136,7 +136,35 @@
         .animate-bounce { animation: bounce 1s infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
         .animate-spin { animation: spin 1s linear infinite; }
+
+        /* Recommended place card */
+        .place-recommended {
+            background: linear-gradient(135deg, rgba(249,115,22,0.15), rgba(239,68,68,0.15)) !important;
+            border: 2px solid;
+            border-image: linear-gradient(135deg, #f97316, #ef4444) 1;
+            border-radius: 0.75rem;
+        }
+        .recommend-badge {
+            background: linear-gradient(135deg, #f97316, #ef4444);
+            color: white;
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
     </style>
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=106347458', 'ym');
+        ym(106347458, 'init', {webvisor:true, trackHash:true, clickmap:true, accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/106347458" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
 </head>
 <body>
     <div id="app"></div>
@@ -164,7 +192,7 @@
             { id: 'nado-podumat', name: 'Надо подумать', icon: '💨', floor: 1, category: 'Кальянная', website: 'https://nadopodumat.ru/' },
             { id: 'wodovorot', name: 'Wodovorot', icon: '💪', floor: 1, category: 'Спорт', website: 'https://wodovorot.ru/' },
             { id: 'balkan', name: 'Балкан', icon: '🍖', floor: 1, category: 'Ресторан', website: 'https://balkanresto.ru/' },
-            { id: 'svalka', name: 'SVALKA', icon: '👕', floor: 2, category: 'Секонд-хенд', website: 'https://svalkasevkabel.ru' },
+            { id: 'svalka', name: 'SVALKA', icon: '👕', floor: 2, category: 'Секонд-хенд', website: 'https://svalkasevkabel.ru', recommended: true },
             { id: '10203', name: '10.203', icon: '🎨', floor: 2, category: 'Выставочное пространство', website: 'https://10203.space/exhibitions/' },
             { id: 'skellige', name: 'Топоры Скеллиге', icon: '🪓', floor: 2, category: 'Метальня', website: 'https://t.me/tprskellige' },
             { id: 'mongolfieri', name: 'Монгольфьери', icon: '🎪', floor: 2, category: 'Театр-цирк', website: 'https://vk.com/mongolfieri.circus' },
@@ -496,9 +524,9 @@
         function generatePlacesListHTML() {
             const filteredPlaces = PLACES.filter(p => p.name.toLowerCase().includes(state.searchQuery.toLowerCase()) || p.category.toLowerCase().includes(state.searchQuery.toLowerCase()));
             return [1, 2, 3].map(floor => {
-                const placesOnFloor = filteredPlaces.filter(p => p.floor === floor);
+                const placesOnFloor = filteredPlaces.filter(p => p.floor === floor).sort((a, b) => (b.recommended ? 1 : 0) - (a.recommended ? 1 : 0));
                 if (placesOnFloor.length === 0) return '';
-                return '<div><div class="text-xs text-gray-500 mb-2">' + floor + ' ЭТАЖ</div><div class="space-y-2">' + placesOnFloor.map(p => '<div class="place-card w-full p-4 rounded-xl flex items-center justify-between" data-place="' + p.id + '" style="background: #1f2937;"><div class="place-select-btn flex items-center gap-3 flex-1 cursor-pointer"><span class="text-2xl">' + p.icon + '</span><div class="text-left"><div class="font-bold" style="color: #fff;">' + p.name + '</div><div class="text-sm" style="color: #9ca3af;">' + p.category + '</div></div></div><div class="flex items-center gap-2">' + (p.website ? '<a href="' + p.website + '" target="_blank" rel="noopener noreferrer" class="website-link text-xl" onclick="event.stopPropagation();" title="Открыть сайт">🌐</a>' : '') + '<span class="place-select-btn cursor-pointer" style="color: #6b7280; padding: 0.5rem;">→</span></div></div>').join('') + '</div></div>';
+                return '<div><div class="text-xs text-gray-500 mb-2">' + floor + ' ЭТАЖ</div><div class="space-y-2">' + placesOnFloor.map(p => '<div class="place-card w-full p-4 rounded-xl flex items-center justify-between' + (p.recommended ? ' place-recommended' : '') + '" data-place="' + p.id + '"' + (p.recommended ? '' : ' style="background: #1f2937;"') + '><div class="place-select-btn flex items-center gap-3 flex-1 cursor-pointer"><span class="text-2xl">' + p.icon + '</span><div class="text-left"><div class="font-bold" style="color: #fff;">' + p.name + (p.recommended ? '<span class="recommend-badge">⭐ Рекомендуем</span>' : '') + '</div><div class="text-sm" style="color: #9ca3af;">' + p.category + '</div></div></div><div class="flex items-center gap-2">' + (p.website ? '<a href="' + p.website + '" target="_blank" rel="noopener noreferrer" class="website-link text-xl" onclick="event.stopPropagation(); if(typeof ym !== \'undefined\') ym(106347458, \'reachGoal\', \'click_website_\' + \'' + p.id + '\');" title="Открыть сайт">🌐</a>' : '') + '<span class="place-select-btn cursor-pointer" style="color: #6b7280; padding: 0.5rem;">→</span></div></div>').join('') + '</div></div>';
             }).join('');
         }
 
@@ -516,6 +544,7 @@
                 card.querySelectorAll('.place-select-btn').forEach(btn => {
                     btn.onclick = (e) => {
                         e.stopPropagation();
+                        if (typeof ym !== 'undefined') ym(106347458, 'reachGoal', 'click_place_' + placeId);
                         state.place = PLACES.find(p => p.id === placeId);
                         state.screen = 'map';
                         render();
@@ -555,14 +584,14 @@
             const searchInput = document.getElementById('search-input');
             if (searchInput) searchInput.oninput = (e) => { state.searchQuery = e.target.value; updatePlacesList(); };
             attachPlaceCardEvents();
-            document.querySelectorAll('[data-entrance]').forEach(btn => { btn.onclick = () => { state.entrance = ENTRANCES.find(e => e.id === btn.dataset.entrance); state.step = 1; state.screen = 'route'; render(); }; });
+            document.querySelectorAll('[data-entrance]').forEach(btn => { btn.onclick = () => { const entranceId = btn.dataset.entrance; if (typeof ym !== 'undefined') { ym(106347458, 'reachGoal', 'click_entrance_' + entranceId); ym(106347458, 'reachGoal', 'route_start', {entrance: entranceId, place: state.place?.id}); } state.entrance = ENTRANCES.find(e => e.id === entranceId); state.step = 1; state.screen = 'route'; render(); }; });
             document.querySelectorAll('.back-to-places').forEach(btn => { btn.onclick = () => { state.screen = 'places'; state.place = null; render(); }; });
             document.querySelectorAll('.back-btn').forEach(btn => { btn.onclick = () => { if (state.screen === 'route') { state.screen = 'map'; state.entrance = null; state.step = 1; } render(); }; });
             document.querySelectorAll('.home-btn').forEach(btn => { btn.onclick = () => { state.screen = 'places'; state.entrance = null; state.place = null; state.step = 1; state.searchQuery = ''; render(); }; });
             const prevBtn = document.querySelector('.prev-btn');
             const nextBtn = document.querySelector('.next-btn');
             if (prevBtn) prevBtn.onclick = () => { if (state.step > 1) { state.step--; render(); } };
-            if (nextBtn) nextBtn.onclick = () => { const route = getRoute(state.entrance.id, state.place.id); if (route && state.step < route.length) { state.step++; render(); } else if (route && state.step === route.length) { state.screen = 'places'; state.entrance = null; state.place = null; state.step = 1; state.searchQuery = ''; render(); } };
+            if (nextBtn) nextBtn.onclick = () => { const route = getRoute(state.entrance.id, state.place.id); if (route && state.step < route.length) { state.step++; const currentStep = route[state.step - 1]; if (currentStep.isFinal && typeof ym !== 'undefined') { ym(106347458, 'reachGoal', 'route_complete', {entrance: state.entrance.id, place: state.place.id}); } render(); } else if (route && state.step === route.length) { state.screen = 'places'; state.entrance = null; state.place = null; state.step = 1; state.searchQuery = ''; render(); } };
         }
         render();
     </script>
