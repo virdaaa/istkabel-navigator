@@ -181,6 +181,7 @@
         const GITHUB_PHOTOS_WODO = 'https://virdaaa.github.io/istkabel-navigator/images/route7-wodovorot/';
         const GITHUB_PHOTOS_BALKAN = 'https://virdaaa.github.io/istkabel-navigator/images/route8-balkan/';
         const GITHUB_PHOTOS_MONGOLFIERI = 'https://virdaaa.github.io/istkabel-navigator/images/route9-mongolfieri/';
+        const GITHUB_PHOTOS_NIVIDIMY = 'https://virdaaa.github.io/istkabel-navigator/images/nividimy/';
 
         const ENTRANCES = [
             { id: 'kozh-34zh', name: 'Кожевенная 34ж', color: '#8b5cf6', x: 7, y: 68 },
@@ -196,12 +197,13 @@
             { id: '10203', name: '10.203', icon: '🎨', floor: 2, category: 'Выставочное пространство', website: 'https://10203.space/exhibitions/' },
             { id: 'skellige', name: 'Топоры Скеллиге', icon: '🪓', floor: 2, category: 'Метальня', website: 'https://t.me/tprskellige' },
             { id: 'mongolfieri', name: 'Монгольфьери', icon: '🎪', floor: 2, category: 'Театр-цирк', website: 'https://vk.com/mongolfieri.circus' },
+            { id: 'nividimy', name: 'Невидимый театр', icon: '🎭', floor: 2, category: 'Театр', website: 'https://ateatra.net/' },
         ];
 
         const ROUTE_TIMES = {
-            'kozh-34zh': { 'svalka': 45, 'wodovorot': 80, 'balkan': 110, 'nado-podumat': 160 },
-            'dom-byta': { 'svalka': 150, 'nado-podumat': 40 },
-            'sevcable': { 'svalka': 180, 'skellige': 150, 'wodovorot': 150, 'nado-podumat': 40 }
+            'kozh-34zh': { 'svalka': 45, 'wodovorot': 80, 'balkan': 110, 'nado-podumat': 160, 'nividimy': 105 },
+            'dom-byta': { 'svalka': 150, 'nado-podumat': 40, 'nividimy': 60 },
+            'sevcable': { 'svalka': 180, 'skellige': 150, 'wodovorot': 150, 'nado-podumat': 40, 'nividimy': 90 }
         };
 
         function formatTime(seconds) {
@@ -509,11 +511,60 @@
             { id: 13, photo: GITHUB_PHOTOS_MONGOLFIERI + 'mongolfieri.jpg', text: 'Вы на месте!', hint: 'Добро пожаловать в Монгольфьери', direction: 'arrived', isFinal: true },
         ];
 
+        const ROUTE_KOZH_NIVIDIMY = [
+            { id: 1, photo: GITHUB_PHOTOS + 'IMG_9343.JPG', text: 'Вход с Кожевенной 34Ж', hint: 'После шлагбаума сразу направо', direction: 'forward' },
+            { id: 2, photo: GITHUB_PHOTOS + 'IMG_9342.JPG', text: 'Заходите в эту дверь', hint: 'Дверь с номером 3105', direction: 'forward' },
+            { id: 3, photo: GITHUB_PHOTOS + 'IMG_9341.JPG', text: 'Прямо и налево', hint: 'Следуйте указателям', direction: 'left' },
+            { id: 4, photo: GITHUB_PHOTOS + 'IMG_9340.JPG', text: 'Прямо по коридору', hint: 'Справа будет лестница', direction: 'forward' },
+            { id: 5, photo: GITHUB_PHOTOS + 'IMG_9339.JPG', text: 'Вход на лестницу', hint: 'Поднимаемся наверх', direction: 'up' },
+            { id: 6, photo: GITHUB_PHOTOS + 'IMG_9338.JPG', text: 'Поднимаемся', hint: 'На второй этаж', direction: 'up' },
+            { id: 7, photo: GITHUB_PHOTOS + 'IMG_9337.JPG', text: 'Второй этаж — налево', hint: 'Указатели SVALKA', direction: 'left' },
+            { id: 8, photo: GITHUB_PHOTOS + 'IMG_9336.JPG', text: 'Идём прямо', hint: 'Между двух SVALKA', direction: 'forward' },
+            { id: 9, photo: GITHUB_PHOTOS_NIVIDIMY + 'photo_2_2026-01-30_14-27-24.jpg', text: 'В коридор налево', hint: 'Между двух SVALKA', direction: 'left' },
+            { id: 10, photo: GITHUB_PHOTOS_NIVIDIMY + 'photo_3_2026-01-30_14-27-24.jpg', text: 'Прямо по длинному коридору', hint: 'Продолжаем путь', direction: 'forward' },
+            { id: 11, photo: GITHUB_PHOTOS_NIVIDIMY + 'photo_4_2026-01-30_14-27-24.jpg', text: 'Всё ещё идём по коридору', hint: 'До самого конца', direction: 'forward' },
+            { id: 12, photo: GITHUB_PHOTOS_NIVIDIMY + 'photo_5_2026-01-30_14-27-24.jpg', text: 'Идём прямо и налево', hint: 'Поворот скоро', direction: 'left' },
+            { id: 13, photo: GITHUB_PHOTOS_NIVIDIMY + 'photo_6_2026-01-30_14-27-24.jpg', text: 'Повернули налево', hint: 'Ещё немного прямо', direction: 'forward' },
+            { id: 14, photo: GITHUB_PHOTOS_NIVIDIMY + 'photo_7_2026-01-30_14-27-24.jpg', text: 'Прямо', hint: 'Справа будет скоро проход', direction: 'forward' },
+            { id: 15, photo: GITHUB_PHOTOS_NIVIDIMY + 'photo_8_2026-01-30_14-27-24.jpg', text: 'Вот этот проход справа', hint: 'Нам туда', direction: 'right' },
+            { id: 16, photo: GITHUB_PHOTOS_NIVIDIMY + 'photo_9_2026-01-30_14-27-24.jpg', text: 'Идём в него', hint: 'Почти на месте!', direction: 'forward' },
+            { id: 17, photo: GITHUB_PHOTOS_NIVIDIMY + 'photo_10_2026-01-30_14-27-24.jpg', text: 'Вы на месте!', hint: 'Добро пожаловать в Невидимый театр', direction: 'arrived', isFinal: true },
+        ];
+
+        const ROUTE_DOMBYTA_NIVIDIMY = [
+            { id: 1, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9356.JPG', text: 'Вход "Дом быта"', hint: 'Заходим внутрь', direction: 'forward' },
+            { id: 2, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9357.JPG', text: 'В холле налево', hint: 'Следуйте указателям', direction: 'left' },
+            { id: 3, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9358.JPG', text: 'Идём до конца', hint: 'Слева магазин, поворот направо', direction: 'right' },
+            { id: 4, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9360.JPG', text: 'Прямо до карты', hint: 'Налево будет дверь', direction: 'left' },
+            { id: 5, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9361.JPG', text: 'Открываем эту дверь', hint: 'Маленькая дверь с "Выход"', direction: 'forward' },
+            { id: 6, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9362.JPG', text: 'Внутренний двор', hint: 'Направо, затем сразу налево', direction: 'right' },
+            { id: 7, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9363.JPG', text: 'Переулок с граффити', hint: 'Граффити справа', direction: 'forward' },
+            { id: 8, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9364.JPG', text: 'Дверь с круглыми окнами', hint: 'Справа вход', direction: 'right' },
+            { id: 9, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9365.JPG', text: 'Поднимаемся по лестнице', hint: 'На стене "Невидимый"', direction: 'up' },
+            { id: 10, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9367.JPG', text: 'Продолжаем подъём', hint: 'На второй этаж', direction: 'up' },
+            { id: 11, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9368.JPG', text: 'Дверь "Театр"', hint: 'Заходим в коридор', direction: 'forward' },
+            { id: 12, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9369.JPG', text: 'Вы на месте!', hint: 'Добро пожаловать в Невидимый театр', direction: 'arrived', isFinal: true },
+        ];
+
+        const ROUTE_SEVCABLE_NIVIDIMY = [
+            { id: 1, photo: GITHUB_PHOTOS_SEVCABLE + 'photo_2025-12-28_05-59-24.jpg', text: 'Парковка', hint: 'Идём прямо до конца в правый угол', direction: 'forward' },
+            { id: 2, photo: GITHUB_PHOTOS_SEVCABLE + 'photo_2025-12-28_05-59-25.jpg', text: 'Идём в угол', hint: 'Продолжаем прямо', direction: 'forward' },
+            { id: 3, photo: GITHUB_PHOTOS_SEVCABLE + 'photo_2025-12-28_05-59-25__2_.jpg', text: 'После здания слева', hint: 'Сразу налево', direction: 'left' },
+            { id: 4, photo: GITHUB_PHOTOS_NIVIDIMY + 'photo_1_2026-01-30_15-25-39.jpg', text: 'В проход к трансформаторным будкам', hint: 'Идём вперёд', direction: 'forward' },
+            { id: 5, photo: GITHUB_PHOTOS_NIVIDIMY + 'photo_2_2026-01-30_15-25-39.jpg', text: 'Идём', hint: 'Держимся правее', direction: 'forward' },
+            { id: 6, photo: GITHUB_PHOTOS_NIVIDIMY + 'photo_3_2026-01-30_15-25-39.jpg', text: 'Направо в тупик', hint: 'Поворачиваем', direction: 'right' },
+            { id: 7, photo: GITHUB_PHOTOS_NIVIDIMY + 'photo_4_2026-01-30_15-25-39.jpg', text: 'Справа будет серая дверь', hint: 'Заходим', direction: 'right' },
+            { id: 8, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9365.JPG', text: 'Поднимаемся по лестнице', hint: 'На стене "Невидимый"', direction: 'up' },
+            { id: 9, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9367.JPG', text: 'Продолжаем подъём', hint: 'На второй этаж', direction: 'up' },
+            { id: 10, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9368.JPG', text: 'Дверь "Театр"', hint: 'Заходим в коридор', direction: 'forward' },
+            { id: 11, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9369.JPG', text: 'Вы на месте!', hint: 'Добро пожаловать в Невидимый театр', direction: 'arrived', isFinal: true },
+        ];
+
         function getRoute(entranceId, placeId) {
             const routes = {
-                'kozh-34zh': { 'svalka': ROUTE_KOZH_SVALKA, '10203': ROUTE_KOZH_10203, 'nado-podumat': ROUTE_KOZH_NADO, 'skellige': ROUTE_KOZH_SKELLIGE, 'wodovorot': ROUTE_KOZH_WODOVOROT, 'balkan': ROUTE_KOZH_BALKAN, 'mongolfieri': ROUTE_KOZH_MONGOLFIERI },
-                'dom-byta': { 'svalka': ROUTE_DOMBYTA_SVALKA, '10203': ROUTE_DOMBYTA_10203, 'nado-podumat': ROUTE_DOMBYTA_NADO, 'skellige': ROUTE_DOMBYTA_SKELLIGE, 'wodovorot': ROUTE_DOMBYTA_WODOVOROT, 'balkan': ROUTE_DOMBYTA_BALKAN, 'mongolfieri': ROUTE_DOMBYTA_MONGOLFIERI },
-                'sevcable': { 'svalka': ROUTE_SEVCABLE_SVALKA, '10203': ROUTE_SEVCABLE_10203, 'nado-podumat': ROUTE_SEVCABLE_NADO, 'skellige': ROUTE_SEVCABLE_SKELLIGE, 'wodovorot': ROUTE_SEVCABLE_WODOVOROT, 'balkan': ROUTE_SEVCABLE_BALKAN, 'mongolfieri': ROUTE_SEVCABLE_MONGOLFIERI }
+                'kozh-34zh': { 'svalka': ROUTE_KOZH_SVALKA, '10203': ROUTE_KOZH_10203, 'nado-podumat': ROUTE_KOZH_NADO, 'skellige': ROUTE_KOZH_SKELLIGE, 'wodovorot': ROUTE_KOZH_WODOVOROT, 'balkan': ROUTE_KOZH_BALKAN, 'mongolfieri': ROUTE_KOZH_MONGOLFIERI, 'nividimy': ROUTE_KOZH_NIVIDIMY },
+                'dom-byta': { 'svalka': ROUTE_DOMBYTA_SVALKA, '10203': ROUTE_DOMBYTA_10203, 'nado-podumat': ROUTE_DOMBYTA_NADO, 'skellige': ROUTE_DOMBYTA_SKELLIGE, 'wodovorot': ROUTE_DOMBYTA_WODOVOROT, 'balkan': ROUTE_DOMBYTA_BALKAN, 'mongolfieri': ROUTE_DOMBYTA_MONGOLFIERI, 'nividimy': ROUTE_DOMBYTA_NIVIDIMY },
+                'sevcable': { 'svalka': ROUTE_SEVCABLE_SVALKA, '10203': ROUTE_SEVCABLE_10203, 'nado-podumat': ROUTE_SEVCABLE_NADO, 'skellige': ROUTE_SEVCABLE_SKELLIGE, 'wodovorot': ROUTE_SEVCABLE_WODOVOROT, 'balkan': ROUTE_SEVCABLE_BALKAN, 'mongolfieri': ROUTE_SEVCABLE_MONGOLFIERI, 'nividimy': ROUTE_SEVCABLE_NIVIDIMY }
             };
             return routes[entranceId]?.[placeId] || null;
         }
