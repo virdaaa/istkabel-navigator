@@ -621,8 +621,9 @@
                 card.onclick = (e) => {
                     if (e.target.closest('.btn-site-small')) return;
                     const placeId = card.dataset.place;
-                    if (typeof ym !== 'undefined') ym(106347458, 'reachGoal', 'click_place_' + placeId);
-                    state.place = PLACES.find(p => p.id === placeId);
+                    const place = PLACES.find(p => p.id === placeId);
+                    if (typeof ym !== 'undefined') ym(106347458, 'reachGoal', 'click_place', {place_id: placeId, place_name: place.name});
+                    state.place = place;
                     state.screen = 'map';
                     render();
                 };
@@ -631,7 +632,8 @@
                 btn.onclick = (e) => {
                     e.stopPropagation();
                     const placeId = btn.dataset.placeId;
-                    if (typeof ym !== 'undefined') ym(106347458, 'reachGoal', 'click_website_' + placeId);
+                    const place = PLACES.find(p => p.id === placeId);
+                    if (typeof ym !== 'undefined') ym(106347458, 'reachGoal', 'click_website', {place_id: placeId, place_name: place.name});
                 };
             });
         }
@@ -667,14 +669,14 @@
             const searchInput = document.getElementById('search-input');
             if (searchInput) searchInput.oninput = (e) => { state.searchQuery = e.target.value; updatePlacesList(); };
             attachPlaceCardEvents();
-            document.querySelectorAll('[data-entrance]').forEach(btn => { btn.onclick = () => { const entranceId = btn.dataset.entrance; if (typeof ym !== 'undefined') { ym(106347458, 'reachGoal', 'click_entrance_' + entranceId); ym(106347458, 'reachGoal', 'route_start', {entrance: entranceId, place: state.place?.id}); } state.entrance = ENTRANCES.find(e => e.id === entranceId); state.step = 1; state.screen = 'route'; render(); }; });
+            document.querySelectorAll('[data-entrance]').forEach(btn => { btn.onclick = () => { const entranceId = btn.dataset.entrance; if (typeof ym !== 'undefined') { ym(106347458, 'reachGoal', 'click_entrance', {entrance_id: entranceId, place_id: state.place?.id}); } state.entrance = ENTRANCES.find(e => e.id === entranceId); state.step = 1; state.screen = 'route'; render(); }; });
             document.querySelectorAll('.back-to-places').forEach(btn => { btn.onclick = () => { state.screen = 'places'; state.place = null; render(); }; });
             document.querySelectorAll('.back-btn').forEach(btn => { btn.onclick = () => { if (state.screen === 'route') { state.screen = 'map'; state.entrance = null; state.step = 1; } render(); }; });
             document.querySelectorAll('.home-btn').forEach(btn => { btn.onclick = () => { state.screen = 'places'; state.entrance = null; state.place = null; state.step = 1; state.searchQuery = ''; render(); }; });
             const prevBtn = document.querySelector('.prev-btn');
             const nextBtn = document.querySelector('.next-btn');
             if (prevBtn) prevBtn.onclick = () => { if (state.step > 1) { state.step--; render(); } };
-            if (nextBtn) nextBtn.onclick = () => { const route = getRoute(state.entrance.id, state.place.id); if (route && state.step < route.length) { state.step++; const currentStep = route[state.step - 1]; if (currentStep.isFinal && typeof ym !== 'undefined') { ym(106347458, 'reachGoal', 'route_complete', {entrance: state.entrance.id, place: state.place.id}); } render(); } else if (route && state.step === route.length) { state.screen = 'places'; state.entrance = null; state.place = null; state.step = 1; state.searchQuery = ''; render(); } };
+            if (nextBtn) nextBtn.onclick = () => { const route = getRoute(state.entrance.id, state.place.id); if (route && state.step < route.length) { if (typeof ym !== 'undefined') ym(106347458, 'reachGoal', 'route_step', {step: state.step, place_id: state.place.id}); state.step++; const currentStep = route[state.step - 1]; if (currentStep.isFinal && typeof ym !== 'undefined') { ym(106347458, 'reachGoal', 'route_complete', {entrance_id: state.entrance.id, place_id: state.place.id, place_name: state.place.name}); } render(); } else if (route && state.step === route.length) { state.screen = 'places'; state.entrance = null; state.place = null; state.step = 1; state.searchQuery = ''; render(); } };
         }
         render();
     </script>
