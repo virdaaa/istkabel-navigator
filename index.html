@@ -126,10 +126,37 @@
         /* Cursor */
         .cursor-pointer { cursor: pointer; }
 
-        /* Website link icon */
-        .website-link { padding: 0.5rem; border-radius: 0.5rem; transition: background-color 0.15s; }
-        .website-link:hover { background-color: rgba(255,255,255,0.1); }
-        .website-link:active { background-color: rgba(255,255,255,0.2); }
+        /* Place card buttons */
+        .place-btn-row {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .btn-site {
+            padding: 8px 16px;
+            border-radius: 8px;
+            background: #374151;
+            color: #fff;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: background 0.15s;
+            text-decoration: none;
+        }
+        .btn-site:hover {
+            background: #4b5563;
+        }
+        .btn-route {
+            padding: 8px 16px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
+            color: #fff;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: transform 0.15s;
+        }
+        .btn-route:active {
+            transform: scale(0.98);
+        }
 
         /* Animations */
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
@@ -577,7 +604,7 @@
             return [1, 2, 3].map(floor => {
                 const placesOnFloor = filteredPlaces.filter(p => p.floor === floor).sort((a, b) => (b.recommended ? 1 : 0) - (a.recommended ? 1 : 0));
                 if (placesOnFloor.length === 0) return '';
-                return '<div><div class="text-xs text-gray-500 mb-2">' + floor + ' ЭТАЖ</div><div class="space-y-2">' + placesOnFloor.map(p => '<div class="place-card w-full p-4 rounded-xl flex items-center justify-between' + (p.recommended ? ' place-recommended' : '') + '" data-place="' + p.id + '"' + (p.recommended ? '' : ' style="background: #1f2937;"') + '><div class="place-select-btn flex items-center gap-3 flex-1 cursor-pointer"><span class="text-2xl">' + p.icon + '</span><div class="text-left"><div class="font-bold" style="color: #fff;">' + p.name + (p.recommended ? '<span class="recommend-badge">⭐</span>' : '') + '</div><div class="text-sm" style="color: #9ca3af;">' + p.category + '</div></div></div><div class="flex items-center gap-2">' + (p.website ? '<a href="' + p.website + '" target="_blank" rel="noopener noreferrer" class="website-link text-xl" onclick="event.stopPropagation(); if(typeof ym !== \'undefined\') ym(106347458, \'reachGoal\', \'click_website_\' + \'' + p.id + '\');" title="Открыть сайт">🌐</a>' : '') + '<span class="place-select-btn cursor-pointer" style="color: #6b7280; padding: 0.5rem;">→</span></div></div>').join('') + '</div></div>';
+                return '<div><div class="text-xs text-gray-500 mb-2">' + floor + ' ЭТАЖ</div><div class="space-y-2">' + placesOnFloor.map(p => '<div class="place-card w-full p-4 rounded-xl' + (p.recommended ? ' place-recommended' : '') + '" data-place="' + p.id + '"' + (p.recommended ? '' : ' style="background: #1f2937;"') + '><div class="flex items-center gap-3"><span class="text-2xl">' + p.icon + '</span><div class="text-left"><div class="font-bold" style="color: #fff;">' + p.name + (p.recommended ? '<span class="recommend-badge">⭐</span>' : '') + '</div><div class="text-sm" style="color: #9ca3af;">' + p.category + '</div></div></div><div class="place-btn-row">' + (p.website ? '<a href="' + p.website + '" target="_blank" rel="noopener noreferrer" class="btn-site" data-place-id="' + p.id + '">Сайт</a>' : '') + '<button class="btn-route" data-place-id="' + p.id + '">Маршрут →</button></div></div>').join('') + '</div></div>';
             }).join('');
         }
 
@@ -590,17 +617,21 @@
         }
 
         function attachPlaceCardEvents() {
-            document.querySelectorAll('.place-card').forEach(card => {
-                const placeId = card.dataset.place;
-                card.querySelectorAll('.place-select-btn').forEach(btn => {
-                    btn.onclick = (e) => {
-                        e.stopPropagation();
-                        if (typeof ym !== 'undefined') ym(106347458, 'reachGoal', 'click_place_' + placeId);
-                        state.place = PLACES.find(p => p.id === placeId);
-                        state.screen = 'map';
-                        render();
-                    };
-                });
+            document.querySelectorAll('.btn-route').forEach(btn => {
+                btn.onclick = (e) => {
+                    e.stopPropagation();
+                    const placeId = btn.dataset.placeId;
+                    if (typeof ym !== 'undefined') ym(106347458, 'reachGoal', 'click_place_' + placeId);
+                    state.place = PLACES.find(p => p.id === placeId);
+                    state.screen = 'map';
+                    render();
+                };
+            });
+            document.querySelectorAll('.btn-site').forEach(btn => {
+                btn.onclick = (e) => {
+                    const placeId = btn.dataset.placeId;
+                    if (typeof ym !== 'undefined') ym(106347458, 'reachGoal', 'click_website_' + placeId);
+                };
             });
         }
 
