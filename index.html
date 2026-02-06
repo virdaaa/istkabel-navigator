@@ -209,6 +209,7 @@
         const GITHUB_PHOTOS_BALKAN = 'https://virdaaa.github.io/istkabel-navigator/images/route8-balkan/';
         const GITHUB_PHOTOS_MONGOLFIERI = 'https://virdaaa.github.io/istkabel-navigator/images/route9-mongolfieri/';
         const GITHUB_PHOTOS_NIVIDIMY = 'https://virdaaa.github.io/istkabel-navigator/images/nividimy/';
+        const GITHUB_PHOTOS_HOLDTOOLD = 'https://virdaaa.github.io/istkabel-navigator/images/route10-hold-to-old/';
 
         const ENTRANCES = [
             { id: 'kozh-34zh', name: 'Кожевенная 34ж', color: '#8b5cf6', x: 7, y: 68 },
@@ -225,6 +226,7 @@
             { id: 'mongolfieri', name: 'Монгольфьери', icon: '🎪', floor: 2, category: 'Театр-цирк', website: 'https://vk.com/mongolfieri.circus' },
             { id: 'nividimy', name: 'Невидимый театр', icon: '🎭', floor: 2, category: 'Театр', website: 'https://ateatra.net/' },
             { id: '10203', name: '10.203', icon: '🎨', floor: 2, category: 'Выставочное пространство', website: 'https://10203.space/exhibitions/' },
+            { id: 'holdtoold', name: 'Hold to Old', icon: '👜', floor: 3, category: 'Селективный винтаж', website: 'https://t.me/hold_to_old' },
         ];
 
         const ROUTE_TIMES = {
@@ -587,11 +589,76 @@
             { id: 11, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9369.JPG', text: 'Вы на месте!', hint: 'Добро пожаловать в Невидимый театр', direction: 'arrived', isFinal: true },
         ];
 
+        const ROUTE_KOZH_HOLDTOOLD = [
+            { id: 1, photo: GITHUB_PHOTOS + 'IMG_9343.JPG', text: 'Вход с Кожевенной 34Ж', hint: 'После шлагбаума сразу направо', direction: 'forward' },
+            { id: 2, photo: GITHUB_PHOTOS + 'IMG_9342.JPG', text: 'Заходите в эту дверь', hint: 'Дверь с номером 3105', direction: 'forward' },
+            { id: 3, photo: GITHUB_PHOTOS + 'IMG_9341.JPG', text: 'Прямо и налево', hint: 'Следуйте указателям', direction: 'left' },
+            { id: 4, photo: GITHUB_PHOTOS + 'IMG_9340.JPG', text: 'Прямо по коридору', hint: 'Справа будет лестница', direction: 'forward' },
+            { id: 5, photo: GITHUB_PHOTOS + 'IMG_9339.JPG', text: 'Вход на лестницу', hint: 'Поднимаемся наверх', direction: 'up' },
+            { id: 6, photo: GITHUB_PHOTOS + 'IMG_9338.JPG', text: 'Поднимаемся', hint: 'На второй этаж', direction: 'up' },
+            { id: 7, photo: GITHUB_PHOTOS + 'IMG_9337.JPG', text: 'Второй этаж, идем выше по лестнице на 3ий', hint: 'Продолжаем подъём', direction: 'up' },
+            { id: 8, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9501.JPG', text: 'Идём выше', hint: 'На третий этаж', direction: 'up' },
+            { id: 9, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9500.JPG', text: 'Поднимаемся на третий и налево', hint: 'Налево', direction: 'left' },
+            { id: 10, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9499.JPG', text: 'Идем прямо и направо в белый коридор', hint: 'Направо', direction: 'right' },
+            { id: 11, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9497.JPG', text: 'Заходим', hint: 'Вперёд', direction: 'forward' },
+            { id: 12, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9496.JPG', text: 'Идём по коридору', hint: 'Продолжаем', direction: 'forward' },
+            { id: 13, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9495.JPG', text: 'Продолжаем!', hint: 'Дальше', direction: 'forward' },
+            { id: 14, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9494.JPG', text: 'Длинный белый коридор', hint: 'Прямо', direction: 'forward' },
+            { id: 15, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9493.JPG', text: 'Идём прямо и у двери направо', hint: 'Направо', direction: 'right' },
+            { id: 16, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9492.JPG', text: 'Дальше по коридору', hint: 'Продолжаем', direction: 'forward' },
+            { id: 17, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9490.JPG', text: 'Другой белый коридор, не сворачиваем никуда', hint: 'Прямо', direction: 'forward' },
+            { id: 18, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9487.JPG', text: 'Продолжаем движение', hint: 'Дальше', direction: 'forward' },
+            { id: 19, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9486.JPG', text: 'Справа оставляем туалеты', hint: 'Прямо', direction: 'forward' },
+            { id: 20, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9485.JPG', text: 'Дальше по узкому коридору', hint: 'Почти пришли', direction: 'forward' },
+            { id: 21, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9483.JPG', text: 'Идём. Почти на месте. Дверь будет справа', hint: 'Справа', direction: 'right' },
+            { id: 22, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9482.JPG', text: 'Вы на месте!', hint: 'Добро пожаловать в Hold to Old', direction: 'arrived', isFinal: true },
+        ];
+
+        const ROUTE_DOMBYTA_HOLDTOOLD = [
+            { id: 1, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9356.JPG', text: 'Вход "Дом быта"', hint: 'Заходим внутрь', direction: 'forward' },
+            { id: 2, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9357.JPG', text: 'В холле налево', hint: 'Следуйте указателям', direction: 'left' },
+            { id: 3, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9358.JPG', text: 'Идём до конца', hint: 'Слева магазин, поворот направо', direction: 'right' },
+            { id: 4, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9360.JPG', text: 'Прямо до карты', hint: 'Налево будет дверь', direction: 'left' },
+            { id: 5, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9361.JPG', text: 'Открываем эту дверь', hint: 'Маленькая дверь с "Выход"', direction: 'forward' },
+            { id: 6, photo: GITHUB_PHOTOS_DOMBYTA + 'IMG_9362.JPG', text: 'Внутренний двор', hint: 'Идём прямо!', direction: 'forward' },
+            { id: 7, photo: GITHUB_PHOTOS_NADO + 'photo_2025-12-29_01-12-22.jpg', text: 'Здесь поворачиваем налево', hint: 'К зданию', direction: 'left' },
+            { id: 8, photo: GITHUB_PHOTOS_SEVCABLE + 'photo_2025-12-28_05-59-27.jpg', text: 'Здесь направо пристройка', hint: 'Направо', direction: 'right' },
+            { id: 9, photo: GITHUB_PHOTOS_HOLDTOOLD + 'photo_2026-02-06_19-21-17.jpg', text: 'Вот эта', hint: 'Подходим', direction: 'forward' },
+            { id: 10, photo: GITHUB_PHOTOS_HOLDTOOLD + 'photo_2026-02-06_19-21-22.jpg', text: 'Заходим смело в серую дверь с круглым окном', hint: 'Внутрь', direction: 'forward' },
+            { id: 11, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9469.JPG', text: 'Чёрная лестница. Поднимаемся.', hint: 'Наверх', direction: 'up' },
+            { id: 12, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9470.JPG', text: 'Продолжаем подъём', hint: 'Выше', direction: 'up' },
+            { id: 13, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9471.JPG', text: 'Нам выше', hint: 'Продолжаем', direction: 'up' },
+            { id: 14, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9472.JPG', text: 'Идём', hint: 'Дальше', direction: 'up' },
+            { id: 15, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9475.JPG', text: 'Нам нужен 3-ий этаж', hint: 'Почти', direction: 'up' },
+            { id: 16, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9477.JPG', text: 'Вот эта оранжевая дверь — наша', hint: 'Заходим', direction: 'forward' },
+            { id: 17, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9479.JPG', text: 'Прямо в холле и направо', hint: 'Направо', direction: 'right' },
+            { id: 18, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9480.JPG', text: 'Мимо "Сада у моря"', hint: 'Прямо', direction: 'forward' },
+            { id: 19, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9482.JPG', text: 'Вы на месте!', hint: 'Добро пожаловать в Hold to Old', direction: 'arrived', isFinal: true },
+        ];
+
+        const ROUTE_SEVCABLE_HOLDTOOLD = [
+            { id: 1, photo: GITHUB_PHOTOS_SEVCABLE + 'photo_2025-12-28_05-59-24.jpg', text: 'Парковка', hint: 'Идём прямо до конца в правый угол', direction: 'forward' },
+            { id: 2, photo: GITHUB_PHOTOS_SEVCABLE + 'photo_2025-12-28_05-59-25.jpg', text: 'Идём в угол', hint: 'Продолжаем прямо', direction: 'forward' },
+            { id: 3, photo: GITHUB_PHOTOS_SEVCABLE + 'photo_2025-12-28_05-59-25__2_.jpg', text: 'Дальше прямо', hint: 'К зданию', direction: 'forward' },
+            { id: 4, photo: GITHUB_PHOTOS_SEVCABLE + 'photo_2025-12-28_05-59-27.jpg', text: 'Здесь направо пристройка', hint: 'Направо', direction: 'right' },
+            { id: 5, photo: GITHUB_PHOTOS_HOLDTOOLD + 'photo_2026-02-06_19-21-17.jpg', text: 'Вот эта', hint: 'Подходим', direction: 'forward' },
+            { id: 6, photo: GITHUB_PHOTOS_HOLDTOOLD + 'photo_2026-02-06_19-21-22.jpg', text: 'Заходим смело в серую дверь с круглым окном', hint: 'Внутрь', direction: 'forward' },
+            { id: 7, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9469.JPG', text: 'Чёрная лестница. Поднимаемся.', hint: 'Наверх', direction: 'up' },
+            { id: 8, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9470.JPG', text: 'Продолжаем подъём', hint: 'Выше', direction: 'up' },
+            { id: 9, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9471.JPG', text: 'Нам выше', hint: 'Продолжаем', direction: 'up' },
+            { id: 10, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9472.JPG', text: 'Идём', hint: 'Дальше', direction: 'up' },
+            { id: 11, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9475.JPG', text: 'Нам нужен 3-ий этаж', hint: 'Почти', direction: 'up' },
+            { id: 12, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9477.JPG', text: 'Вот эта оранжевая дверь — наша', hint: 'Заходим', direction: 'forward' },
+            { id: 13, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9479.JPG', text: 'Прямо в холле и направо', hint: 'Направо', direction: 'right' },
+            { id: 14, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9480.JPG', text: 'Мимо "Сада у моря"', hint: 'Прямо', direction: 'forward' },
+            { id: 15, photo: GITHUB_PHOTOS_HOLDTOOLD + 'IMG_9482.JPG', text: 'Вы на месте!', hint: 'Добро пожаловать в Hold to Old', direction: 'arrived', isFinal: true },
+        ];
+
         function getRoute(entranceId, placeId) {
             const routes = {
-                'kozh-34zh': { 'svalka': ROUTE_KOZH_SVALKA, '10203': ROUTE_KOZH_10203, 'nado-podumat': ROUTE_KOZH_NADO, 'skellige': ROUTE_KOZH_SKELLIGE, 'wodovorot': ROUTE_KOZH_WODOVOROT, 'balkan': ROUTE_KOZH_BALKAN, 'mongolfieri': ROUTE_KOZH_MONGOLFIERI, 'nividimy': ROUTE_KOZH_NIVIDIMY },
-                'dom-byta': { 'svalka': ROUTE_DOMBYTA_SVALKA, '10203': ROUTE_DOMBYTA_10203, 'nado-podumat': ROUTE_DOMBYTA_NADO, 'skellige': ROUTE_DOMBYTA_SKELLIGE, 'wodovorot': ROUTE_DOMBYTA_WODOVOROT, 'balkan': ROUTE_DOMBYTA_BALKAN, 'mongolfieri': ROUTE_DOMBYTA_MONGOLFIERI, 'nividimy': ROUTE_DOMBYTA_NIVIDIMY },
-                'sevcable': { 'svalka': ROUTE_SEVCABLE_SVALKA, '10203': ROUTE_SEVCABLE_10203, 'nado-podumat': ROUTE_SEVCABLE_NADO, 'skellige': ROUTE_SEVCABLE_SKELLIGE, 'wodovorot': ROUTE_SEVCABLE_WODOVOROT, 'balkan': ROUTE_SEVCABLE_BALKAN, 'mongolfieri': ROUTE_SEVCABLE_MONGOLFIERI, 'nividimy': ROUTE_SEVCABLE_NIVIDIMY }
+                'kozh-34zh': { 'svalka': ROUTE_KOZH_SVALKA, '10203': ROUTE_KOZH_10203, 'nado-podumat': ROUTE_KOZH_NADO, 'skellige': ROUTE_KOZH_SKELLIGE, 'wodovorot': ROUTE_KOZH_WODOVOROT, 'balkan': ROUTE_KOZH_BALKAN, 'mongolfieri': ROUTE_KOZH_MONGOLFIERI, 'nividimy': ROUTE_KOZH_NIVIDIMY, 'holdtoold': ROUTE_KOZH_HOLDTOOLD },
+                'dom-byta': { 'svalka': ROUTE_DOMBYTA_SVALKA, '10203': ROUTE_DOMBYTA_10203, 'nado-podumat': ROUTE_DOMBYTA_NADO, 'skellige': ROUTE_DOMBYTA_SKELLIGE, 'wodovorot': ROUTE_DOMBYTA_WODOVOROT, 'balkan': ROUTE_DOMBYTA_BALKAN, 'mongolfieri': ROUTE_DOMBYTA_MONGOLFIERI, 'nividimy': ROUTE_DOMBYTA_NIVIDIMY, 'holdtoold': ROUTE_DOMBYTA_HOLDTOOLD },
+                'sevcable': { 'svalka': ROUTE_SEVCABLE_SVALKA, '10203': ROUTE_SEVCABLE_10203, 'nado-podumat': ROUTE_SEVCABLE_NADO, 'skellige': ROUTE_SEVCABLE_SKELLIGE, 'wodovorot': ROUTE_SEVCABLE_WODOVOROT, 'balkan': ROUTE_SEVCABLE_BALKAN, 'mongolfieri': ROUTE_SEVCABLE_MONGOLFIERI, 'nividimy': ROUTE_SEVCABLE_NIVIDIMY, 'holdtoold': ROUTE_SEVCABLE_HOLDTOOLD }
             };
             return routes[entranceId]?.[placeId] || null;
         }
