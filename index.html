@@ -11,7 +11,7 @@
     <link rel="canonical" href="https://svalkasevkabel.ru/guide/">
 
     <!-- Browser redirect -->
-    <meta http-equiv="refresh" content="0; url=https://svalkasevkabel.ru/guide/">
+    <noscript><meta http-equiv="refresh" content="0; url=https://svalkasevkabel.ru/guide/?utm_source=github_guide&amp;utm_medium=redirect"></noscript>
 
     <style>
         body { font-family: -apple-system, sans-serif; background: #0a0a0a; color: #fff; margin: 0; padding: 40px 20px; text-align: center; }
@@ -32,8 +32,18 @@
         <p class="small">Сейчас переадресуем автоматически…</p>
     </div>
     <script>
-        // Robust JS redirect (in addition to meta refresh)
-        window.location.replace('https://svalkasevkabel.ru/guide/');
+        (function() {
+            var hash = window.location.hash || '';
+            var search = window.location.search || '';
+            var isTg = hash.indexOf('tgWebAppData') !== -1 || search.indexOf('tgWebApp') !== -1 || (document.referrer && document.referrer.indexOf('telegram') !== -1);
+            var params = new URLSearchParams(search);
+            if (!params.has('utm_source')) {
+                params.set('utm_source', isTg ? 'telegram' : 'github_guide');
+                params.set('utm_medium', isTg ? 'miniapp' : 'redirect');
+            }
+            var qs = params.toString();
+            window.location.replace('https://svalkasevkabel.ru/guide/' + (qs ? '?' + qs : '') + hash);
+        })();
     </script>
 </body>
 </html>
